@@ -1,5 +1,6 @@
 package com.example.unigate;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,8 @@ import javafx.scene.control.*;
 import models.PackageData;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.Optional;
 
 import static com.example.unigate.DoorsPage.door_selected;
@@ -82,6 +85,29 @@ public class DoorDetailPage {
 
 
         });
+
+        String ip =door_selected.getIpv4();
+
+        try {
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(ip, 80), 1000);
+            Platform.runLater(() -> {
+                status.setText("Available");
+                status.setStyle("-fx-background-color: green");
+            });
+        } catch (IOException e) {
+            Platform.runLater(() -> {
+                status.setText("Error");
+                status.setStyle("-fx-background-color: red");
+            });
+        }
+
+
+
+
+
+
+
     }
 
 }

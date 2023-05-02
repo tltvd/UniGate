@@ -1,6 +1,7 @@
 package com.example.unigate;
 import java.io.IOException;
 
+import DataBase.Const;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,9 +12,12 @@ import models.PackageData;
 import models.User;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 
 
 public class AddUserPage {
+
+    public Boolean photo_check;
 
 
 
@@ -33,6 +37,7 @@ public class AddUserPage {
         if (file != null) {
             String path = "C:\\xampp\\htdocs\\dashboard\\unigate\\" + iin_textfield.getText() + "." + getFileExtension(file.getName());
             saveFile(file, path);
+            photo_check=true;
         }
     }
 
@@ -108,13 +113,20 @@ public class AddUserPage {
                 e.printStackTrace();
             }
         });
-        btn_register.setOnAction(event -> signUpNewUser());
+        btn_register.setOnAction(event -> {
+            try {
+                signUpNewUser();
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        });
         btn_photo.setOnAction(event -> onPhotoButtonClicked());
 
     }
 
-    private void signUpNewUser() {
-        String password = password_textfield.getText();
+    private void signUpNewUser() throws NoSuchAlgorithmException {
+        Security security =new Security();
+        String password = Security.hashPassword(password_textfield.getText(), Const.SALT);
         String username=username_textfield.getText();
         String firstname=firstname_textfield.getText();
         String lastname=lastname_textfield.getText();
@@ -127,7 +139,7 @@ public class AddUserPage {
         else
             gender="Female";
 
-        String role="USER";
+        String role=role_choiceBox.getValue();
 
         User user=new User( id_user,username,password,firstname,lastname,phone,email,gender,role);
 
@@ -178,7 +190,7 @@ public class AddUserPage {
         boolean res=false;
         if(!user.getUsername().isEmpty() && !user.getPassword().isEmpty() && !user.getFirst_name().isEmpty()
                 && !user.getLast_name().isEmpty()  && !user.getId_user().isEmpty() && !user.getPhone().isEmpty()
-                && !user.getEmail().isEmpty() && !user.getGender().isEmpty() && !user.getRole().isEmpty() && user.getEmail().contains("@")){
+                && !user.getEmail().isEmpty() && !user.getGender().isEmpty() && !user.getRole().isEmpty() && user.getEmail().contains("@") && photo_check){
             res=true;
         }
         return res;

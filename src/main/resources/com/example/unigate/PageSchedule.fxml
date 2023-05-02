@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@data/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.unigate.UsersPage">
+   <children>
+      <TreeTableView prefHeight="200.0" prefWidth="200.0" styleClass="table-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+        <columns>
+          <TreeTableColumn prefWidth="143.33333837985992" text="Де" />
+          <TreeTableColumn prefWidth="275.3333282470703" text="C2" />
+        </columns>
+      </TreeTableView>
+      <Button fx:id="btn_addUser" layoutX="1028.0" layoutY="29.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="150.0" styleClass="button_menu" AnchorPane.leftAnchor="1025.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@person_add.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btn_back" layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="150.0" styleClass="button_menu" text="Back" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="1025.0" AnchorPane.topAnchor="15.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="352.0" layoutY="24.0" prefHeight="75.0" prefWidth="250.0" style="-fx-text-fill: white;" styleClass="root" stylesheets="@data/Style.css" text="Schedule" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="375.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="40.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

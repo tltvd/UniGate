@@ -1,6 +1,8 @@
 package DataBase;
 
 public class Const {
+
+    public static final String SALT="8fa985e47a9d6f1bd3bbb75427442f6b";
     public static final String USER_TABLE="users";
     public static final String USERS_ID="id_user";
     public static final String USERS_ROLE="role";

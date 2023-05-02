@@ -1,5 +1,6 @@
 package com.example.unigate;
 
+import DataBase.Const;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -103,6 +105,7 @@ public class UserDetailPage {
         label_birthdate.setText(user_selected.getBirthdate());
         label_Gender.setText(user_selected.getGender());
         label_role.setText(user_selected.getRole());
+        Security security =new Security();
 
 
         btn_cancel.setOnAction(event -> {
@@ -118,23 +121,27 @@ public class UserDetailPage {
         btn_change.setOnAction(event -> {
             if ((!field_newPassword.getText().equals("") && !field_oldPassword.getText().equals(""))) {
                 User userUpdate = new User();
-                if (field_oldPassword.getText().equals(user_selected.getPassword())) {
-                    userUpdate.setId_user(user_selected.getId_user());
-                    userUpdate.setPassword(field_newPassword.getText().trim());
-                    PackageData pd = new PackageData(userUpdate);
-                    pd.setOperationType("UPDATE");
-                    Main.connect(pd);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Successfully!");
-                    alert.setHeaderText("Your password has been successfully changed.");
-                    alert.showAndWait();
-                    field_oldPassword.setText("");
-                    field_newPassword.setText("");
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error!");
-                    alert.setHeaderText("ERROR!");
-                    alert.showAndWait();
+                try {
+                    if (Security.hashPassword(field_oldPassword.getText(), Const.SALT).equals(user_selected.getPassword())) {
+                        userUpdate.setId_user(user_selected.getId_user());
+                        userUpdate.setPassword(Security.hashPassword(field_oldPassword.getText(), Const.SALT).trim());
+                        PackageData pd = new PackageData(userUpdate);
+                        pd.setOperationType("UPDATE");
+                        Main.connect(pd);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Successfully!");
+                        alert.setHeaderText("Your password has been successfully changed.");
+                        alert.showAndWait();
+                        field_oldPassword.setText("");
+                        field_newPassword.setText("");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error!");
+                        alert.setHeaderText("ERROR!");
+                        alert.showAndWait();
+                    }
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
                 }
 
             }
