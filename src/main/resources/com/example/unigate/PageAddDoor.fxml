@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@data/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.unigate.AddDoorPage">
+   <children>
+      <Label alignment="CENTER" layoutX="514.0" layoutY="39.0" prefHeight="55.0" prefWidth="290.0" text="Doors Control Page" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="360.0">
+         <font>
+            <Font name="Nirmala UI" size="38.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_add" layoutX="750.0" layoutY="687.0" mnemonicParsing="false" onAction="#initialize" prefHeight="46.0" prefWidth="350.0" text="ADD" textFill="WHITE" AnchorPane.rightAnchor="100.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_cancel" layoutX="100.0" layoutY="687.0" mnemonicParsing="false" onAction="#initialize" prefHeight="46.0" prefWidth="350.0" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="100.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="20.0" />
+         </font>
+      </Button>
+      <TextField fx:id="ip_textfield" alignment="CENTER" layoutX="360.0" layoutY="261.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="480.0" promptText="iPv4" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="261.0">
+         <font>
+            <Font name="Nirmala UI" size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="doorname_textfield" alignment="CENTER" layoutX="107.0" layoutY="154.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="480.0" promptText="Door name" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="620.0" AnchorPane.topAnchor="150.0">
+         <font>
+            <Font name="Nirmala UI" size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="doorLocation_textfield" alignment="CENTER" layoutX="687.0" layoutY="154.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="480.0" promptText="Door Location Description" AnchorPane.bottomAnchor="570.0" AnchorPane.leftAnchor="620.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">
+         <font>
+            <Font name="Nirmala UI" size="20.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

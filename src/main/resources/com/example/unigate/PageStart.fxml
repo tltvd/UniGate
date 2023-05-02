@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: linear-gradient(to bottom, #343434, #282828, #1d1d1d, #121212, #000000);;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.unigate.StartPage">
+    <children>
+        <Label alignment="CENTER" layoutX="46.0" layoutY="186.0" prefHeight="86.0" prefWidth="525.0" text="Welcome to the UniGate" textFill="WHITE" AnchorPane.bottomAnchor="590.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="620.0" AnchorPane.topAnchor="120.0">
+            <font>
+                <Font name="Nirmala UI Bold" size="45.0" />
+            </font>
+        </Label>
+      <Label alignment="CENTER" layoutX="56.0" layoutY="196.0" prefHeight="86.0" prefWidth="294.0" text="Haven't Registered Yet? " textFill="WHITE" AnchorPane.bottomAnchor="520.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="850.0" AnchorPane.topAnchor="195.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="348.0" layoutY="196.0" prefHeight="86.0" prefWidth="174.0" text="Register Now!" textFill="RED" AnchorPane.bottomAnchor="520.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="675.0" AnchorPane.topAnchor="195.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="392.0" fitWidth="378.0" layoutX="143.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="745.0" AnchorPane.topAnchor="310.0">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <PasswordField id="pass_field" fx:id="password_textfield" alignment="CENTER" layoutX="50.0" layoutY="314.0" prefHeight="60.0" prefWidth="500.0" promptText="Password" AnchorPane.bottomAnchor="390.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="350.0">
+                  <font>
+                      <Font size="20.0" />
+                  </font>
+            </PasswordField>
+              <Button id="sign_in_button" fx:id="sign_in_button" layoutX="219.0" layoutY="469.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #393939; -fx-background-radius: 60;" text="LogIN" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="500.0">
+                  <font>
+                      <Font name="Nirmala UI Bold" size="40.0" />
+                  </font>
+              </Button>
+              <TextField id="username_field" fx:id="username_textfield" alignment="CENTER" layoutX="45.0" layoutY="212.0" prefHeight="60.0" prefWidth="500.0" promptText="Username" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="250.0">
+                  <font>
+                      <Font name="Nirmala UI" size="20.0" />
+                  </font>
+            </TextField>
+            <Label alignment="CENTER" layoutX="200.0" layoutY="100.0" prefHeight="100.0" prefWidth="200.0" text="SIGN IN" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0">
+               <font>
+                  <Font name="Nirmala UI Bold" size="45.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

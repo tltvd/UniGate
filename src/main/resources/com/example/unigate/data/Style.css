@@ -1,0 +1,86 @@
+.button:hover{
+    -fx-text-fill: black;
+    -fx-background-color: #FFBD44;
+}
+
+.button_exit:hover{
+    -fx-background-color: #d11a2a;
+}
+
+.button{
+    -fx-background-color: black ;
+    -fx-border-width: 3;
+    -fx-font-size: 20;
+    -fx-font-family: "Nirmala UI";
+    -fx-text-fill: white;
+}
+.root{
+    -fx-background-color: #121212;
+}
+
+.button_menu{
+    -fx-background-color: #151515 ;
+    -fx-border-width: 10;
+    -fx-font-size: 30;
+    -fx-font-family: "Nirmala UI";
+    -fx-text-fill: white;
+}
+
+.button_exit{
+    -fx-background-color: #151515 ;
+    -fx-border-width: 10;
+    -fx-font-size: 30;
+    -fx-font-family: "Nirmala UI";
+    -fx-text-fill: white;
+}
+
+
+
+.table-view{
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: #151515;
+}
+.table-column{
+    -fx-background-color: transparent;
+    -fx-font-family: "Nirmala UI";
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.table-row-cell{
+    -fx-font-family: "Nirmala UI";
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-background-color: #121212;
+    -fx-table-cell-border-color: transparent;
+    //-fx-cell-size: 70;
+
+}
+.table-row-cell:selected {
+    -fx-background-color: #343434;
+}
+.table-row-cell:hover {
+    -fx-background-color: #787878;
+}
+
+.text-field{
+    -fx-background-radius: 5;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 25;
+    -fx-prompt-text-fill: #a9a9a9;
+}
+.choice-box{
+    -fx-background-radius: 5;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 25;
+    -fx-prompt-text-fill: #a9a9a9;
+}

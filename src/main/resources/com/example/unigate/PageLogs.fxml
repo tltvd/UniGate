@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@data/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.unigate.AccessHistoryPage">
+   <children>
+      <Button fx:id="btn_back" layoutX="25.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="150.0" styleClass="button_menu" text="Back" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="1025.0" AnchorPane.topAnchor="15.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="352.0" layoutY="24.0" prefHeight="75.0" prefWidth="250.0" style="-fx-text-fill: white;" styleClass="root" stylesheets="@data/Style.css" text="Access History" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="375.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="40.0" />
+         </font>
+      </Label>
+      <TableView fx:id="table_logs" layoutX="10.0" layoutY="110.0" prefHeight="689.0" prefWidth="1200.0" stylesheets="@data/Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <columns>
+            <TableColumn fx:id="tableColumn_accessId" editable="false" prefWidth="202.6666818857193" text="iD" />
+            <TableColumn fx:id="tableColumn_userId" editable="false" prefWidth="166.00001525878906" text="User Id" />
+            <TableColumn fx:id="tableColumn_doorid" prefWidth="240.00006103515625" text="Room Id" />
+            <TableColumn fx:id="tableColumn_time" prefWidth="400.0" text="Time" />
+            <TableColumn fx:id="tableColumn_granted" prefWidth="189.3333740234375" text="Granted" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
