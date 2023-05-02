@@ -47,6 +47,18 @@ public class DatabaseHandler extends Configs {
         }
 
     }
+    public void Delete(Door door){
+        try {
+            String str="DELETE FROM "+Const.DOORS_TABLE+" WHERE "+Const.DOORS_TABLE+"."+Const.DOORS_ID+"="+door.getId_room();
+            PreparedStatement prSt = getDbConnection().prepareStatement(str);
+            prSt.executeUpdate();
+            prSt.close();
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
     public void add(User user){
         String insert= "INSERT INTO "+Const.USER_TABLE+"("+Const.USERS_FIRSTNAME+","+Const.USERS_LASTNAME+","+Const.USERS_USERNAME+","+
                 Const.USERS_PASSWORD+","+Const.USERS_EMAIL+","+Const.USERS_GENDER+","+ Const.USERS_PHONE+","+ Const.USERS_ROLE+","+Const.USERS_ID+","+Const.USERS_BIRTHDATE+")"+"VALUES(?,?,?,?,?,?,?,?,?,STR_TO_DATE(SUBSTRING(?, 1, 6), '%y%m%d'))";

@@ -37,6 +37,9 @@ public class Main extends Application {
             else if(pd.getOperationType().equals("ADD_LOG")){
                 outputStream.writeObject(pd);
             }
+            else if(pd.getOperationType().equals("DELETE_DOOR")){
+                outputStream.writeObject(pd);
+            }
             /*
             else if(pd.getOperationType().equals("LIST_GARAGE")){
                 outputStream.writeObject(pd);
@@ -78,6 +81,9 @@ public class Main extends Application {
                 outputStream.writeObject(pd);
                 UsersPage.user_selected.setPassword(pd.getUser().getPassword());
             }
+            else if(pd.getOperationType().equals("DELETE_USER")){
+            outputStream.writeObject(pd);
+            }
 
             /*
 
@@ -94,10 +100,7 @@ public class Main extends Application {
             }
             else if(pd.getOperationType().equals("DELETE_ORDER")){
                 outputStream.writeObject(pd);
-            }
-            else if(pd.getOperationType().equals("DELETE_USER")){
-                outputStream.writeObject(pd);
-            }
+
 
 
 

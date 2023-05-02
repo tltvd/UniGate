@@ -171,6 +171,35 @@ public class DoorsPage {
             }
         });
 
+        tableColumn_status.setCellFactory(param -> new TableCell<>() {
+            private final Button detailsButton = new Button("Details");
+
+            {
+                detailsButton.setOnAction(event -> {
+                    door_selected = getTableView().getItems().get(getIndex());
+                    try {
+                        Parent root2 = FXMLLoader.load(getClass().getResource("PageDoorDetail.fxml"));
+                        Main.setscene(root2);
+
+
+                        Main.window.centerOnScreen();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(detailsButton);
+                }
+            }
+        });
+
         /*
         tableColumn_status.setCellFactory(param -> new TableCell<>() {
 

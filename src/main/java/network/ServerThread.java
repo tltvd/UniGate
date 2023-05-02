@@ -110,6 +110,10 @@ public class ServerThread extends Thread{
                         PackageData data = new PackageData(logs,s,s2,s3);
                         outputStream.writeObject(data);
                     }
+                    else if (pd.getOperationType().equals("DELETE_DOOR")) {
+                        Door doorFromClient= pd.getDoor();
+                        db.Delete(doorFromClient);
+                    }
                     else if (pd.getOperationType().equals("DELETE_USER")) {
                         User userFromClient= pd.getUser();
                         db.Delete(userFromClient);

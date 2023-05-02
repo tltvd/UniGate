@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import models.PackageData;
@@ -18,7 +15,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
+import static com.example.unigate.DoorsPage.door_selected;
 import static com.example.unigate.UsersPage.user_selected;
 
 
@@ -27,6 +26,9 @@ public class UserDetailPage {
 
     @FXML
     private Button btn_cancel;
+
+    @FXML
+    private Button btn_delete;
 
     @FXML
     private Button btn_change;
@@ -136,6 +138,35 @@ public class UserDetailPage {
                 }
 
             }
+        });
+
+        btn_delete.setOnAction(event -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Confirm Deletion");
+            alert.setContentText("Are you sure you want to delete this element?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK){
+                PackageData pd=new PackageData("DELETE_USER",user_selected);
+                Main.connect(pd);
+                try {
+                    Parent root2 = FXMLLoader.load(getClass().getResource("PageUsers.fxml"));
+                    Main.setscene(root2);
+                    Main.window.centerOnScreen();
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Information Dialog");
+                    alert1.setHeaderText("Deleting completed!");
+                    alert1.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {}
+
+
+
         });
 
     }

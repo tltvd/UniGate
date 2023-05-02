@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@data/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.unigate.UserDetailPage">
    <children>
-      <Button fx:id="btn_cancel" layoutX="141.0" layoutY="651.0" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="250.0" styleClass="button_menu" text="Cancel" textFill="WHITE">
+      <Button fx:id="btn_cancel" layoutX="141.0" layoutY="651.0" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="250.0" styleClass="button_menu" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="870.0">
          <font>
             <Font name="Nirmala UI Bold" size="20.0" />
          </font>
@@ -35,7 +35,7 @@
             <Font name="Nirmala UI Bold" size="35.0" />
          </font>
       </Label>
-      <Button fx:id="btn_change" layoutX="783.0" layoutY="651.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="250.0" styleClass="button_menu" text="Change" textFill="WHITE">
+      <Button fx:id="btn_change" layoutX="783.0" layoutY="651.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="250.0" styleClass="button_menu" text="Change" textFill="WHITE" AnchorPane.rightAnchor="80.0">
          <font>
             <Font name="Nirmala UI Bold" size="20.0" />
          </font>
@@ -167,5 +167,10 @@
          </children>
       </HBox>
       <ImageView fx:id="image_avatar" fitHeight="359.0" fitWidth="345.0" layoutX="728.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btn_delete" layoutX="456.0" layoutY="651.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="250.0" styleClass="button_exit" text="Delete" textFill="WHITE" AnchorPane.bottomAnchor="73.66666666666667" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="475.0">
+         <font>
+            <Font name="Nirmala UI Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
