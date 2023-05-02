@@ -1,5 +1,6 @@
 package DataBase;
 
+import models.Door;
 import models.Log;
 import models.User;
 
@@ -80,6 +81,23 @@ public class DatabaseHandler extends Configs {
             prSt.setString(2, log.getRoom_id());
             prSt.setString(3, log.getAccess_time());
             prSt.setString(4, log.getGranted());
+
+            prSt.executeUpdate();
+            prSt.close();
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void add_door(Door door){
+        String insert= "INSERT INTO "+Const.DOORS_TABLE+"("+Const.DOORS_LOCATION+","+Const.DOORS_NAME+","+Const.DOORS_IPV4+")"+"VALUES(?,?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+            prSt.setString(1, door.getLocation());
+            prSt.setString(2, door.getName());
+            prSt.setString(3, door.getIpv4());
 
             prSt.executeUpdate();
             prSt.close();

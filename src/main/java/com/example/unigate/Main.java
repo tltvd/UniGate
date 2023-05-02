@@ -31,6 +31,9 @@ public class Main extends Application {
             if(pd.getOperationType().equals("SIGN_UP")){
                 outputStream.writeObject(pd);
             }
+            else if(pd.getOperationType().equals("ADD_DOOR")){
+                outputStream.writeObject(pd);
+            }
             else if(pd.getOperationType().equals("ADD_LOG")){
                 outputStream.writeObject(pd);
             }

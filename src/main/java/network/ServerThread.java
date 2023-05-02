@@ -119,6 +119,11 @@ public class ServerThread extends Thread{
                         db.add_log(logFromClient);
                         System.out.println("----------A NEW LOG WAS ADDED----------");
                     }
+                    else if (pd.getOperationType().equals("ADD_DOOR")) {
+                        Door DoorFromClient = pd.getDoor();
+                        db.add_door(DoorFromClient);
+                        System.out.println("----------A NEW DOOR WAS ADDED----------");
+                    }
                     else if (pd.getOperationType().equals("USERNAME_CHECK")) {
                         User user = new User();
                         ResultSet infoClient = db.UsernameCheck(pd.getUser());

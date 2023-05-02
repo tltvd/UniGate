@@ -22,6 +22,12 @@ public class Door implements Serializable {
         this.ipv4 = ipv4;
     }
 
+    public Door(String name, String location, String ipv4) {
+        this.name = name;
+        this.location = location;
+        this.ipv4 = ipv4;
+    }
+
     public String getId_room() {
         return id_room;
     }
@@ -53,4 +59,5 @@ public class Door implements Serializable {
     public void setIpv4(String ipv4) {
         this.ipv4 = ipv4;
     }
+
 }

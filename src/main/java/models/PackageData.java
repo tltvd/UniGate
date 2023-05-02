@@ -24,6 +24,10 @@ public class PackageData implements Serializable {
         this.operationType = operationType;
         this.user = user;
     }
+    public PackageData(String operationType, Door door) {
+        this.operationType = operationType;
+        this.door = door;
+    }
     public PackageData(String operationType) {  //get information about car or user
         this.operationType = operationType;
     }

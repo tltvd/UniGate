@@ -19,12 +19,13 @@
       </Label>
       <TableView fx:id="table_doors" layoutX="10.0" layoutY="110.0" prefHeight="689.0" prefWidth="1200.0" stylesheets="@data/Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <columns>
-            <TableColumn fx:id="tableColumn_doorID" editable="false" prefWidth="202.6666818857193" text="iD" />
-            <TableColumn fx:id="tableColumn_doorName" editable="false" prefWidth="166.00001525878906" text="Name" />
-            <TableColumn fx:id="tableColumn_doorLocation" editable="false" prefWidth="277.33331298828125" text="Location" />
-            <TableColumn fx:id="tableColumn_doorIpaddr" prefWidth="229.33331298828125" text="IPv4 Address" />
-            <TableColumn fx:id="tableColumn_action" prefWidth="170.6666259765625" text="Action" />
-            <TableColumn fx:id="tableColumn_qr" prefWidth="151.3333740234375" text="QR generator" />
+            <TableColumn fx:id="tableColumn_doorID" editable="false" prefWidth="124.66668951511383" text="iD" />
+            <TableColumn fx:id="tableColumn_doorName" editable="false" prefWidth="224.66666412353516" text="Name" />
+            <TableColumn fx:id="tableColumn_doorLocation" editable="false" prefWidth="163.33328247070312" text="Location" />
+            <TableColumn fx:id="tableColumn_doorIpaddr" prefWidth="199.33331298828125" text="IPv4 Address" />
+            <TableColumn fx:id="tableColumn_status" prefWidth="160.6666259765625" text="Status" />
+            <TableColumn fx:id="tableColumn_action" minWidth="0.0" prefWidth="166.0" text="Action" />
+            <TableColumn fx:id="tableColumn_qr" minWidth="0.66668701171875" prefWidth="160.0" text="QR generator" />
          </columns>
       </TableView>
       <Button fx:id="btn_addDoor" layoutX="1028.0" layoutY="29.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="150.0" styleClass="button_menu" text="+" AnchorPane.leftAnchor="1025.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
