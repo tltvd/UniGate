@@ -30,6 +30,15 @@ public class Const {
     public static final String LOGS_GRANT="granted";
 
 
+    public static final String SCHEDULE_TABLE="schedules";
+    public static final String SCHEDULE_DESCRIPTION="access_description";
+    public static final String SCHEDULE_ID="id_schedule";
+    public static final String SCHEDULE_IDUSER="id_user";
+    public static final String SCHEDULE_IDROOM="id_room";
+    public static final String SCHEDULE_day="day";
+    public static final String SCHEDULE_START_TIME="start_time";
+    public static final String SCHEDULE_END_TIME="end_time";
+
 
 }
 

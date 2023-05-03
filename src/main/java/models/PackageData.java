@@ -8,13 +8,25 @@ public class PackageData implements Serializable {
     private User user;
     private Door door;
     private Log log;
+    private Schedule schedule;
     private ArrayList<Log> logsArray;
+    private ArrayList<Schedule> scheduleArray;
     private ArrayList<User> usersArray;
     private ArrayList<Door> doorArray;
 
+    public PackageData(ArrayList<Schedule> scheduleArray) {
+        this.scheduleArray = scheduleArray;
+    }
 
+    public ArrayList<Schedule> getScheduleArray() {
+        return scheduleArray;
+    }
 
-    public PackageData(ArrayList<User> usersArray,String s) {
+    public void setScheduleArray(ArrayList<Schedule> scheduleArray) {
+        this.scheduleArray = scheduleArray;
+    }
+
+    public PackageData(ArrayList<User> usersArray, String s) {
         this.usersArray = usersArray;
     }
     public PackageData(User user) {

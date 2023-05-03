@@ -40,6 +40,11 @@ public class Main extends Application {
             else if(pd.getOperationType().equals("DELETE_DOOR")){
                 outputStream.writeObject(pd);
             }
+            else if(pd.getOperationType().equals("LIST_SCHEDULE")){
+                outputStream.writeObject(pd);
+                PackageData infoFromServer=(PackageData)inputStream.readObject();
+                DoorSchedulePage.schedules= infoFromServer.getScheduleArray();
+            }
             /*
             else if(pd.getOperationType().equals("LIST_GARAGE")){
                 outputStream.writeObject(pd);

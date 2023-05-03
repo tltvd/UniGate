@@ -2,10 +2,7 @@ package network;
 
 import DataBase.DatabaseHandler;
 import DataBase.Const;
-import models.Door;
-import models.Log;
-import models.PackageData;
-import models.User;
+import models.*;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;
@@ -90,6 +87,23 @@ public class ServerThread extends Thread{
                         String s="";
                         String s2="";
                         PackageData data = new PackageData(doors,s,s2);
+                        outputStream.writeObject(data);
+                    }
+                    else if (pd.getOperationType().equals("LIST_SCHEDULE")) {
+                        ArrayList<Schedule> schedules = new ArrayList<>();
+                        ResultSet infoClient = db.getDoorSchedule(pd.getDoor());
+                        while (infoClient.next()) {
+                            Schedule schedule=new Schedule();
+                            schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
+                            schedule.setId_schedule(infoClient.getInt(Const.SCHEDULE_ID));
+                            schedule.setStart_time(infoClient.getTime(Const.SCHEDULE_START_TIME));
+                            schedule.setEnd_time(infoClient.getTime(Const.SCHEDULE_END_TIME));
+                            schedule.setDay(infoClient.getString(Const.SCHEDULE_day));
+                            schedule.setId_user(infoClient.getString(Const.SCHEDULE_IDUSER));
+                            schedule.setRoom_id(infoClient.getInt(Const.SCHEDULE_IDROOM));
+                            schedules.add(schedule);
+                        }
+                        PackageData data = new PackageData(schedules);
                         outputStream.writeObject(data);
                     }
                     else if (pd.getOperationType().equals("LIST_LOGS")) {

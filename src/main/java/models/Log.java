@@ -29,6 +29,10 @@ public class Log implements Serializable {
         this.granted = granted;
     }
 
+    public Log(int idRoom, String idUser, String str, String statusLogs) {
+
+    }
+
     public String getId_access() {
         return id_access;
     }

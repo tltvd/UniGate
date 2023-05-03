@@ -1,7 +1,6 @@
 package com.example.unigate;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +15,10 @@ import java.util.Optional;
 import static com.example.unigate.DoorsPage.door_selected;
 
 public class DoorDetailPage {
+
+
+    @FXML
+    private Button btn_schedule;
 
     @FXML
     private Button btn_cancel;
@@ -101,7 +104,25 @@ public class DoorDetailPage {
                 status.setStyle("-fx-background-color: red");
             });
         }
+        btn_cancel.setOnAction(event -> {
+            try {
+                Parent root2 = FXMLLoader.load(getClass().getResource("PageDoors.fxml"));
+                Main.setscene(root2);
+                Main.window.centerOnScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
+        btn_schedule.setOnAction(event -> {
+            try {
+                Parent root2 = FXMLLoader.load(getClass().getResource("PageSchedule.fxml"));
+                Main.setscene(root2);
+                Main.window.centerOnScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 
 

@@ -146,6 +146,22 @@ public class DatabaseHandler extends Configs {
         }
         return resSet;
     }
+
+    public ResultSet getDoorSchedule(Door door){
+        ResultSet resSet = null;
+        String str = "SELECT * FROM " + Const.SCHEDULE_TABLE + " WHERE " + Const.SCHEDULE_IDROOM + "=? ORDER BY "+Const.SCHEDULE_day+", "+ Const.SCHEDULE_START_TIME+", "+ Const.SCHEDULE_END_TIME;
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(str);
+            prSt.setString(1, door.getId_room());
+            resSet=prSt.executeQuery();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resSet;
+    }
+
+
+
     public ResultSet getAlldoors(){
         ResultSet resSet=null;
         String str = "SELECT * FROM " + Const.DOORS_TABLE;
