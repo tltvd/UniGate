@@ -84,3 +84,7 @@
     -fx-font-size: 25;
     -fx-prompt-text-fill: #a9a9a9;
 }
+.dialog-pane{
+    -fx-background-color: #131313;
+    -fx-font-size: 25;
+}

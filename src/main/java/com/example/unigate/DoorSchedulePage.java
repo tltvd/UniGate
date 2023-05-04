@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.PackageData;
 import models.Schedule;
@@ -32,6 +29,9 @@ public class DoorSchedulePage {
 
     @FXML
     private Label name_label;
+
+    @FXML
+    private Button btn_delete;
 
     @FXML
     private TableColumn<Schedule, String> tableColumn_day;
@@ -59,6 +59,24 @@ public class DoorSchedulePage {
 
     @FXML
     void initialize() {
+        btn_delete.setOnAction(event -> {
+            Schedule selectedSchedule = table_schedule.getSelectionModel().getSelectedItem();
+            if (selectedSchedule != null) {
+                User user = getUserById(selectedSchedule.getId_user());
+                String message = String.format("Вы точно хотите удалить доступ пользователя %s к двери %s с %s по %s?",
+                        user.getFirst_name() + " " + user.getLast_name(),
+                        door_selected.getLocation(),
+                        selectedSchedule.getStart_time(),
+                        selectedSchedule.getEnd_time());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.YES) {
+                    System.out.println("DELETE COMPLETE");
+                    //deleteSchedule(selectedSchedule);
+                }
+            }
+        });
+
         btn_back.setOnAction(event -> {
             try {
                 Parent root2 = FXMLLoader.load(getClass().getResource("PageDoors.fxml"));
@@ -87,9 +105,18 @@ public class DoorSchedulePage {
         PackageData dp1 = new PackageData("LIST_USERS");
         Main.connect(dp1);
         populateTableView();
-        users=UsersPage.users;
+        users= UsersPage.users;
 
 
+    }
+
+    public User getUserById(String userId) {
+        for (User user : users) {
+            if (user.getId_user().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     private void populateTableView() {

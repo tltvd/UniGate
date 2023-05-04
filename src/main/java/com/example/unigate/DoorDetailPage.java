@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import models.Door;
 import models.PackageData;
 
 import java.io.IOException;
@@ -121,6 +122,41 @@ public class DoorDetailPage {
                 Main.window.centerOnScreen();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+
+        btn_update.setOnAction(event -> {
+            // создание нового объекта Door
+            Door updatedDoor = new Door();
+            updatedDoor.setIpv4(ip_textfield.getText());
+            updatedDoor.setLocation(location_textfield.getText());
+            updatedDoor.setName(name_textfield.getText());
+            updatedDoor.setId_room(id_label.getText());
+
+            // создание диалогового окна с подтверждением
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Update");
+            alert.setHeaderText("Update Door");
+            alert.setContentText("Are you sure you want to update this door?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // отправка обновленного объекта на сервер
+                PackageData pd = new PackageData("UPDATE_DOOR", updatedDoor);
+                Main.connect(pd);
+
+                // переход на страницу списка дверей
+                try {
+                    Parent root2 = FXMLLoader.load(getClass().getResource("PageDoors.fxml"));
+                    Main.setscene(root2);
+                    Main.window.centerOnScreen();
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Information Dialog");
+                    alert1.setHeaderText("Door updated successfully!");
+                    alert1.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

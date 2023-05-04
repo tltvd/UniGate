@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -31,5 +33,14 @@
             <Font name="Nirmala UI Bold" size="40.0" />
          </font>
       </Label>
+      <Button fx:id="btn_delete" layoutX="848.0" layoutY="15.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#initialize" prefHeight="75.0" prefWidth="150.0" styleClass="button_menu" AnchorPane.leftAnchor="850.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="15.000000000000043">
+         <graphic>
+            <ImageView fitHeight="90.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@delete.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

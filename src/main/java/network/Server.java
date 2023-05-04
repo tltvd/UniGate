@@ -1,11 +1,18 @@
 package network;
+
 import network.ServerThread;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.*;
-import java.util.Date;
 import java.util.Enumeration;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Server {
+    private static final Logger logger = Logger.getLogger(Server.class.getName());
+
     public static void printLocalIPAddress() {
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -15,7 +22,7 @@ public class Server {
                 while (addresses.hasMoreElements()) {
                     InetAddress addr = addresses.nextElement();
                     if (!addr.isLinkLocalAddress() && !addr.isLoopbackAddress() && addr.getHostAddress().indexOf(":") == -1) {
-                        System.out.println("Локальный IP-адрес: " + addr.getHostAddress());
+                        logger.info("Локальный IP-адрес: " + addr.getHostAddress());
                     }
                 }
             }
@@ -23,23 +30,37 @@ public class Server {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         try {
+            // Создание директории logs, если ее еще нет
+            File logsDir = new File("logs");
+            if (!logsDir.exists()) {
+                logsDir.mkdir();
+            }
+
+            // Инициализация FileHandler, чтобы записывать логи в файл
+            FileHandler fileHandler = new FileHandler("logs/server.log", true);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fileHandler.setFormatter(formatter);
+            logger.addHandler(fileHandler);
+
             ServerSocket ss = new ServerSocket(3489);
             printLocalIPAddress();
-            System.out.println("THE SERVER WAS STARTED SUCCESSFULLY at " + new Date());
-            System.out.println("WAITING CLIENTS");
+            logger.info("THE SERVER WAS STARTED SUCCESSFULLY");
+            logger.info("WAITING CLIENTS");
 
-            while(true){
-                Socket socket=ss.accept();
+            while(true) {
+                Socket socket = ss.accept();
 
                 ServerThread st = new ServerThread(socket);
                 st.start();
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
             e.printStackTrace();
         }
+        logger.info("TESSSSSSSSSSSSSSSSST");
     }
 }

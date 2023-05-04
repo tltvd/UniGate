@@ -38,6 +38,22 @@ public class DatabaseHandler extends Configs {
 
     }
 
+    public void update(Door door) {
+        try {
+            String query = "UPDATE " + Const.DOORS_TABLE + " SET " + Const.DOORS_NAME + " = ?, " + Const.DOORS_LOCATION + " = ?, " + Const.DOORS_IPV4 + " = ? " + "WHERE " + Const.DOORS_TABLE + "." + Const.DOORS_ID + " = ?";
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+            preparedStatement.setString(1, door.getName());
+            preparedStatement.setString(2, door.getLocation());
+            preparedStatement.setString(3, door.getIpv4());
+            preparedStatement.setString(4, door.getId_room());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void Delete(User user) {
         try {
             String str = "DELETE FROM " + Const.USER_TABLE + " WHERE " + Const.USER_TABLE + "." + Const.USERS_ID + "=" + user.getId_user();
@@ -65,8 +81,7 @@ public class DatabaseHandler extends Configs {
     }
 
     public void add(User user) {
-        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_FIRSTNAME + "," + Const.USERS_LASTNAME + "," + Const.USERS_USERNAME + "," +
-                Const.USERS_PASSWORD + "," + Const.USERS_EMAIL + "," + Const.USERS_GENDER + "," + Const.USERS_PHONE + "," + Const.USERS_ROLE + "," + Const.USERS_ID + "," + Const.USERS_BIRTHDATE + ")" + "VALUES(?,?,?,?,?,?,?,?,?,STR_TO_DATE(SUBSTRING(?, 1, 6), '%y%m%d'))";
+        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_FIRSTNAME + "," + Const.USERS_LASTNAME + "," + Const.USERS_USERNAME + "," + Const.USERS_PASSWORD + "," + Const.USERS_EMAIL + "," + Const.USERS_GENDER + "," + Const.USERS_PHONE + "," + Const.USERS_ROLE + "," + Const.USERS_ID + "," + Const.USERS_BIRTHDATE + ")" + "VALUES(?,?,?,?,?,?,?,?,?,STR_TO_DATE(SUBSTRING(?, 1, 6), '%y%m%d'))";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
             prSt.setString(1, user.getFirst_name());
@@ -90,8 +105,7 @@ public class DatabaseHandler extends Configs {
     }
 
     public void add_log(Log log) {
-        String insert = "INSERT INTO " + Const.LOGS_TABLE + "(" + Const.LOGS_IDUSER + "," + Const.LOGS_IDROOM + "," + Const.LOGS_TIME + "," +
-                Const.LOGS_GRANT + ")" + "VALUES(?,?,?,?)";
+        String insert = "INSERT INTO " + Const.LOGS_TABLE + "(" + Const.LOGS_IDUSER + "," + Const.LOGS_IDROOM + "," + Const.LOGS_TIME + "," + Const.LOGS_GRANT + ")" + "VALUES(?,?,?,?)";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
             prSt.setString(1, log.getId_user());
@@ -109,9 +123,7 @@ public class DatabaseHandler extends Configs {
     }
 
     public void add_schedule(Schedule schedule) {
-        String insert = "INSERT INTO " + Const.SCHEDULE_TABLE + "(" + Const.SCHEDULE_day + "," + Const.SCHEDULE_IDROOM
-                + "," + Const.SCHEDULE_IDUSER + "," + Const.SCHEDULE_DESCRIPTION + ","
-                + Const.SCHEDULE_START_TIME + "," + Const.SCHEDULE_END_TIME + ")" + "VALUES(?,?,?,?,?,?)";
+        String insert = "INSERT INTO " + Const.SCHEDULE_TABLE + "(" + Const.SCHEDULE_day + "," + Const.SCHEDULE_IDROOM + "," + Const.SCHEDULE_IDUSER + "," + Const.SCHEDULE_DESCRIPTION + "," + Const.SCHEDULE_START_TIME + "," + Const.SCHEDULE_END_TIME + ")" + "VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
             prSt.setString(1, schedule.getDay());

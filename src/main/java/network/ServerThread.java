@@ -28,7 +28,7 @@ public class ServerThread extends Thread {
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formattedDateTime = currentDateTime.format(formatter);
-            System.out.println("[" + formattedDateTime + "] Client connected from: " + clientAddress.getHostAddress());
+
 
             DatabaseHandler db = new DatabaseHandler();
             db.getDbConnection();
@@ -44,6 +44,11 @@ public class ServerThread extends Thread {
                     } else if (pd.getOperationType().equals("UPDATE")) {
                         User userFromClient = pd.getUser();
                         db.update(userFromClient);
+
+                    } else if (pd.getOperationType().equals("UPDATE_DOOR")) {
+                        Door doorFromClient = pd.getDoor();
+                        db.update(doorFromClient);
+
                     } else if (pd.getOperationType().equals("SIGN_IN")) {
                         User user = new User();
                         ResultSet infoClient = db.getUser(pd.getUser());
@@ -59,7 +64,7 @@ public class ServerThread extends Thread {
                         }
                         PackageData data = new PackageData(user);
                         outputStream.writeObject(data);
-                        System.out.println("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGNIN from Client IP: " + clientAddress.getHostAddress());
+                        System.out.println("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from Client IP: " + clientAddress.getHostAddress());
                     } else if (pd.getOperationType().equals("LIST_USERS")) {
                         ArrayList<User> users = new ArrayList<>();
                         ResultSet infoClient = db.getAllusers();
@@ -141,11 +146,13 @@ public class ServerThread extends Thread {
                     } else if (pd.getOperationType().equals("ADD_DOOR")) {
                         Door DoorFromClient = pd.getDoor();
                         db.add_door(DoorFromClient);
-                        System.out.println("----------A NEW DOOR WAS ADDED----------");
+                        System.out.println("[" + formattedDateTime + "] DOOR ID: " + pd.getDoor().getId_room() + " LOCATION: " + pd.getDoor().getLocation() + " WAS ADDED from Client IP: " + clientAddress.getHostAddress());
+                        //System.out.println("----------A NEW DOOR WAS ADDED----------");
                     } else if (pd.getOperationType().equals("ADD_SCHEDULE")) {
                         Schedule ScheduleFromClient = pd.getSchedule();
                         db.add_schedule(ScheduleFromClient);
-                        System.out.println("----------A NEW ACCESS WAS ADDED----------");
+                        System.out.println("[" + formattedDateTime + "] SCHEDULE ID: " + pd.getSchedule().getId_schedule() + " ID USER: " + pd.getSchedule().getId_user() + " WAS ADDED from Client IP: " + clientAddress.getHostAddress());
+                        //System.out.println("----------A NEW ACCESS WAS ADDED----------");
                     } else if (pd.getOperationType().equals("USERNAME_CHECK")) {
                         User user = new User();
                         ResultSet infoClient = db.UsernameCheck(pd.getUser());
@@ -162,8 +169,7 @@ public class ServerThread extends Thread {
 
                 }
             } catch (EOFException ignored) {
-            }
-            inputStream.close();
+            } inputStream.close();
             outputStream.close();
             socket.close();
         } catch (Exception e) {

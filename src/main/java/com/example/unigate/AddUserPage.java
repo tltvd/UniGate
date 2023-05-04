@@ -38,6 +38,7 @@ public class AddUserPage {
             String path = "C:\\xampp\\htdocs\\dashboard\\unigate\\" + iin_textfield.getText() + "." + getFileExtension(file.getName());
             saveFile(file, path);
             photo_check=true;
+            photo_path_label.setText(file.getAbsolutePath());
         }
     }
 
@@ -58,6 +59,8 @@ public class AddUserPage {
     }
 
 
+    @FXML
+    private Label photo_path_label;
 
     @FXML
     private ToggleGroup Gender;
@@ -188,9 +191,42 @@ public class AddUserPage {
 
     private boolean check(User user){
         boolean res=false;
-        if(!user.getUsername().isEmpty() && !user.getPassword().isEmpty() && !user.getFirst_name().isEmpty()
-                && !user.getLast_name().isEmpty()  && !user.getId_user().isEmpty() && !user.getPhone().isEmpty()
-                && !user.getEmail().isEmpty() && !user.getGender().isEmpty() && !user.getRole().isEmpty() && user.getEmail().contains("@") && photo_check){
+        if(!user.getUsername().isEmpty()
+                && !user.getPassword().isEmpty()
+                && !user.getFirst_name().isEmpty()
+                && !user.getLast_name().isEmpty()
+                && !user.getId_user().isEmpty()
+                && !user.getPhone().isEmpty()
+                && !user.getEmail().isEmpty()
+                && user.getEmail().contains("@")
+                && !user.getGender().isEmpty()
+                && !user.getRole().isEmpty()
+                && photo_check){
+
+            // Проверка правильности номера телефона
+            if(!user.getPhone().matches("\\d+")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Invalid phone number!");
+                alert.showAndWait();
+                return false;
+            }
+
+            // Проверка правильности формата электронной почты
+            if(!user.getEmail().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Invalid email address!");
+                alert.showAndWait();
+                return false;
+            }
+
+            // Проверка наличия загруженного изображения
+            if(!photo_check){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Please upload a photo!");
+                alert.showAndWait();
+                return false;
+            }
+
             res=true;
         }
         return res;

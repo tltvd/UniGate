@@ -11,4 +11,7 @@ module com.example.unigate {
     opens models to javafx.base;
     opens com.example.unigate to javafx.fxml;
     exports com.example.unigate;
+    exports DataBase;
+    opens DataBase to javafx.fxml;
+
 }

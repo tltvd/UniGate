@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@data/Style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.unigate.UserDetailPage">
@@ -30,7 +31,7 @@
             <Font name="Nirmala UI Bold" size="15.0" />
          </font>
       </PasswordField>
-      <Label alignment="CENTER" layoutX="51.0" layoutY="50.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="430.0" text="Your account information" textFill="WHITE" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="50.0">
+      <Label alignment="CENTER" layoutX="51.0" layoutY="50.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="430.0" text="Account information" textFill="WHITE" AnchorPane.leftAnchor="51.0" AnchorPane.topAnchor="50.0">
          <font>
             <Font name="Nirmala UI Bold" size="35.0" />
          </font>
@@ -40,137 +41,141 @@
             <Font name="Nirmala UI Bold" size="20.0" />
          </font>
       </Button>
-      <HBox layoutX="75.0" layoutY="121.0" prefHeight="50.0" prefWidth="445.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="51.0" prefWidth="200.0" styleClass="label2" text="Username: " textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_username" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Username" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="171.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="51.0" prefWidth="200.0" styleClass="label2" text="Last name: " textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_lastName" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Last name " textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="221.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="First name: " textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_firstName" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="First name" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="271.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="IIN:" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_iin" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="IIN" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="325.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="Phone:" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_phoneNumber" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Phone number" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="385.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="Email:" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_email" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Email" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="436.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="Role:" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_role" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Role" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="487.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="Date of birth:" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_birthdate" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Date of birth" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox layoutX="75.0" layoutY="538.0" prefHeight="51.0" prefWidth="446.0">
-         <children>
-            <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="label2" text="Gender:" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_Gender" minWidth="-Infinity" prefHeight="50.0" prefWidth="245.0" styleClass="label3" text="Gender" textFill="WHITE">
-               <font>
-                  <Font name="Nirmala UI" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
       <ImageView fx:id="image_avatar" fitHeight="359.0" fitWidth="345.0" layoutX="728.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btn_delete" layoutX="456.0" layoutY="651.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="250.0" styleClass="button_exit" text="Delete" textFill="WHITE" AnchorPane.bottomAnchor="73.66666666666667" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="475.0">
          <font>
             <Font name="Nirmala UI Bold" size="20.0" />
          </font>
       </Button>
+      <VBox layoutX="51.0" layoutY="111.0" prefHeight="550.0" prefWidth="500.0">
+         <children>
+            <HBox prefHeight="50.0" prefWidth="445.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="Username: " textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_username" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Username" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="51.0" prefWidth="170.0" styleClass="label2" text="Last name: " textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_lastName" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Last name " textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="First name: " textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_firstName" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="First name" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="IIN:" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_iin" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="IIN" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="Phone:" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_phoneNumber" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Phone number" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="Email:" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_email" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Email" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="Role:" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_role" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Role" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="Date of birth:" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_birthdate" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Date of birth" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="446.0">
+               <children>
+                  <Label minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="label2" text="Gender:" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_Gender" minWidth="-Infinity" prefHeight="50.0" prefWidth="330.0" styleClass="label3" text="Gender" textFill="WHITE">
+                     <font>
+                        <Font name="Nirmala UI" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

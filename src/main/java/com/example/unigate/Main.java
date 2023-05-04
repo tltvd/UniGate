@@ -21,117 +21,58 @@ public class Main extends Application {
     public static final int HEIGHT = 800;
     public static Stage window;
 
-    public static void connect(PackageData pd){
-        try{
-            Socket socket=new Socket("127.0.0.1",3489);
-            ObjectOutputStream outputStream=new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream inputStream=new ObjectInputStream(socket.getInputStream());
+    public static void connect(PackageData pd) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 3489);
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
 
 
-            if(pd.getOperationType().equals("SIGN_UP")){
+            if (pd.getOperationType().equals("SIGN_UP")) {
                 outputStream.writeObject(pd);
-            } else if(pd.getOperationType().equals("ADD_SCHEDULE")){
+            } else if (pd.getOperationType().equals("ADD_SCHEDULE")) {
                 outputStream.writeObject(pd);
-            } else if(pd.getOperationType().equals("ADD_DOOR")){
+            } else if (pd.getOperationType().equals("ADD_DOOR")) {
                 outputStream.writeObject(pd);
-            } else if(pd.getOperationType().equals("ADD_LOG")){
+            } else if (pd.getOperationType().equals("ADD_LOG")) {
                 outputStream.writeObject(pd);
-            }
-            else if(pd.getOperationType().equals("DELETE_DOOR")){
+            } else if (pd.getOperationType().equals("DELETE_DOOR")) {
                 outputStream.writeObject(pd);
-            }
-            else if(pd.getOperationType().equals("LIST_SCHEDULE")){
+            } else if (pd.getOperationType().equals("LIST_SCHEDULE")) {
                 outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                DoorSchedulePage.schedules= infoFromServer.getScheduleArray();
-            }
-            /*
-            else if(pd.getOperationType().equals("LIST_GARAGE")){
+                PackageData infoFromServer = (PackageData) inputStream.readObject();
+                DoorSchedulePage.schedules = infoFromServer.getScheduleArray();
+            } else if (pd.getOperationType().equals("SIGN_IN")) {
                 outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                Page_garage_controller.orders= infoFromServer.getOrders();
-            }
-            else if(pd.getOperationType().equals("SHOW_CAR")){
+                PackageData infoFromServer = (PackageData) inputStream.readObject();
+                StartPage.user = infoFromServer.getUser();
+            } else if (pd.getOperationType().equals("LIST_USERS")) {
                 outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                Page_car_controller.car_catalog= infoFromServer.getCar();
-            }
-            else if(pd.getOperationType().equals("LIST_ORDER")){
+                PackageData infoFromServer = (PackageData) inputStream.readObject();
+                UsersPage.users = infoFromServer.getUsersArray();
+            } else if (pd.getOperationType().equals("LIST_LOGS")) {
                 outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                Page_orders_controller.orders= infoFromServer.getOrders();
-            }
-            */
-            else if(pd.getOperationType().equals("SIGN_IN")){
+                PackageData infoFromServer = (PackageData) inputStream.readObject();
+                AccessHistoryPage.logs = infoFromServer.getLogsArray();
+            } else if (pd.getOperationType().equals("LIST_DOORS")) {
                 outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                StartPage.user= infoFromServer.getUser();
-            }
-            else if(pd.getOperationType().equals("LIST_USERS")){
-                outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                UsersPage.users= infoFromServer.getUsersArray();
-            }
-            else if(pd.getOperationType().equals("LIST_LOGS")){
-                outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                AccessHistoryPage.logs= infoFromServer.getLogsArray();
-            }
-            else if(pd.getOperationType().equals("LIST_DOORS")){
-                outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                DoorsPage.doors= infoFromServer.getDoorsArray();
-            }
-            else if(pd.getOperationType().equals("UPDATE")){
+                PackageData infoFromServer = (PackageData) inputStream.readObject();
+                DoorsPage.doors = infoFromServer.getDoorsArray();
+            } else if (pd.getOperationType().equals("UPDATE")) {
                 outputStream.writeObject(pd);
                 UsersPage.user_selected.setPassword(pd.getUser().getPassword());
-            }
-            else if(pd.getOperationType().equals("DELETE_USER")){
-            outputStream.writeObject(pd);
-            }
-
-            /*
-
-            else if(pd.getOperationType().equals("BUY")){
+            } else if (pd.getOperationType().equals("UPDATE_DOOR")) {
+                outputStream.writeObject(pd);
+            } else if (pd.getOperationType().equals("DELETE_USER")) {
                 outputStream.writeObject(pd);
             }
-            else if(pd.getOperationType().equals("LIST_ORDER_ADMIN")){
-                outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-                Page_admin_orders_controller.orders= infoFromServer.getOrders();
-            }
-            else if(pd.getOperationType().equals("CHANGE_STATUS")){
-                outputStream.writeObject(pd);
-            }
-            else if(pd.getOperationType().equals("DELETE_ORDER")){
-                outputStream.writeObject(pd);
-
-
-
-
-
-            else if(pd.getOperationType().equals("USERNAME_CHECK")){
-                outputStream.writeObject(pd);
-                PackageData infoFromServer=(PackageData)inputStream.readObject();
-
-                if(infoFromServer.getUser().getUsername().equals("isempty")){
-                    Page_signUp_Controller.checkUsername=true;
-                }
-                else {
-                    Page_signUp_Controller.checkUsername=false;
-                }
-            }
-            */
-
-
-
 
             inputStream.close();
             outputStream.close();
             socket.close();
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Error!");
@@ -142,21 +83,6 @@ public class Main extends Application {
     }
 
     @Override
-    /*
-    public void start(Stage stage) throws IOException {
-        window=primaryStage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PageStart.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        stage.setTitle("UniGate");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("UniGate");
-        InputStream iconStream = getClass().getResourceAsStream("data/logo.png");
-        Image image = new Image(iconStream);
-        stage.getIcons().add(image);
-        stage.show();
-    }
-*/
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PageStart.fxml"));

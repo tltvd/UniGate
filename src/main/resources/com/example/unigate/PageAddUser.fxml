@@ -89,5 +89,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="photo_path_label" layoutX="100.0" layoutY="638.0" prefHeight="33.0" prefWidth="480.0" textFill="WHITE">
+         <font>
+            <Font name="Nirmala UI Semilight" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

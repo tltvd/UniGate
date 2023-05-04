@@ -130,6 +130,7 @@ public class DoorsPage {
                     setGraphic(detailsButton);
                 }
             }
+
         });
         tableColumn_qr.setCellFactory(param -> new TableCell<>() {
             private final Button qrButton = new Button("QR Generate");
@@ -140,6 +141,7 @@ public class DoorsPage {
                     try {
                         QRCodeWriter qrCodeWriter = new QRCodeWriter();
                         String qrCodeText = door_selected.getLocation();
+
                         int width = 800;
                         int height = 800;
                         BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, width, height);

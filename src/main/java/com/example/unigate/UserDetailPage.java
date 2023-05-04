@@ -1,7 +1,6 @@
 package com.example.unigate;
 
 import DataBase.Const;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import static com.example.unigate.DoorsPage.door_selected;
 import static com.example.unigate.UsersPage.user_selected;
 
 
