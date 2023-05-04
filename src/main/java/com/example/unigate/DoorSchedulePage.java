@@ -68,6 +68,15 @@ public class DoorSchedulePage {
                 e.printStackTrace();
             }
         });
+        btn_add.setOnAction(event -> {
+            try {
+                Parent root2 = FXMLLoader.load(getClass().getResource("PageAddSchedule.fxml"));
+                Main.setscene(root2);
+                Main.window.centerOnScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         name_label.setText(door_selected.getLocation());
 
         PackageData dp = new PackageData("LIST_SCHEDULE", door_selected);
@@ -79,6 +88,7 @@ public class DoorSchedulePage {
         Main.connect(dp1);
         populateTableView();
         users=UsersPage.users;
+
 
     }
 

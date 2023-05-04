@@ -5,6 +5,7 @@ module com.example.unigate {
 
     requires java.desktop;
     requires com.google.zxing;
+    requires com.google.zxing.javase;
 
 
     opens models to javafx.base;

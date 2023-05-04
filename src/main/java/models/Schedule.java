@@ -1,14 +1,12 @@
 package models;
-import javafx.beans.value.ObservableValue;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.time.LocalTime;
 
 public class Schedule implements Serializable {
     private int id_schedule;
     private String id_user;
-    private int room_id;
+    private String id_room;
     private String day;
     private Time start_time;
     private Time end_time;
@@ -20,15 +18,27 @@ public class Schedule implements Serializable {
     public Schedule() {
     }
 
-    public Schedule(int id_schedule, String id_user, int room_id, String day, Time start_time, Time end_time, String access_description) {
-        this.id_schedule = id_schedule;
+
+
+    public Schedule(String id_user, String id_room, String day, Time start_time, Time end_time, String access_description, User user) {
         this.id_user = id_user;
-        this.room_id = room_id;
+        this.id_room = id_room;
         this.day = day;
         this.start_time = start_time;
         this.end_time = end_time;
         this.access_description = access_description;
+        this.user = user;
     }
+
+    public Schedule(String day, String id_room, String id_user, Time start_time, Time end_time, String access_description) {
+        this.day = day;
+        this.id_user = id_user;
+        this.id_room = id_room;
+        this.start_time = start_time;
+        this.end_time = end_time;
+        this.access_description = access_description;
+    }
+
 
     public String getAccess_description() {
         return access_description;
@@ -62,12 +72,12 @@ public class Schedule implements Serializable {
         this.id_user = id_user;
     }
 
-    public int getRoom_id() {
-        return room_id;
+    public String getId_room() {
+        return id_room;
     }
 
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
+    public void setId_room(String id_room) {
+        this.id_room = id_room;
     }
 
     public String getDay() {
@@ -94,5 +104,14 @@ public class Schedule implements Serializable {
         this.end_time = end_time;
     }
 
-
+    public String toString() {
+        return "Schedule{" +
+                "day=" + day +
+                ", roomId=" + id_room +
+                ", userId=" + id_user +
+                ", startTime=" + start_time +
+                ", endTime=" + end_time +
+                ", accessDescription='" + access_description + '\'' +
+                '}';
+    }
 }

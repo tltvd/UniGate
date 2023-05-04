@@ -2,6 +2,7 @@ package network;
 import network.ServerThread;
 
 import java.net.*;
+import java.util.Date;
 import java.util.Enumeration;
 
 public class Server {
@@ -27,7 +28,7 @@ public class Server {
         try {
             ServerSocket ss = new ServerSocket(3489);
             printLocalIPAddress();
-            System.out.println("THE SERVER WAS STARTED SUCCESSFULLY");
+            System.out.println("THE SERVER WAS STARTED SUCCESSFULLY at " + new Date());
             System.out.println("WAITING CLIENTS");
 
             while(true){
