@@ -54,30 +54,27 @@ public class StartPage {
         });
         password_textfield.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                String username, password;
-                username = username_textfield.getText().trim();
-                password = password_textfield.getText().trim();
-                try {
-                    loginUser(username, password);
-                } catch (NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                }
+                login();
             }
         });
+
         username_textfield.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                String username, password;
-                username = username_textfield.getText().trim();
-                password = password_textfield.getText().trim();
-                try {
-                    loginUser(username, password);
-                } catch (NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                }
+                login();
             }
         });
-    }
 
+
+    }
+    private void login() {
+        String username = username_textfield.getText().trim();
+        String password = password_textfield.getText().trim();
+        try {
+            loginUser(username, password);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private void loginUser(String username, String password) throws NoSuchAlgorithmException {
         if (username.equals("") && password.equals("")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);

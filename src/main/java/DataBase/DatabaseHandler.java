@@ -27,7 +27,7 @@ public class DatabaseHandler extends Configs {
     public void update(User user) {
 
         try {
-            String str = "UPDATE " + Const.USER_TABLE + " SET " + Const.USERS_PASSWORD + "=" + user.getPassword() + " WHERE " + Const.USER_TABLE + "." + Const.USERS_ID + " = " + user.getId_user();
+            String str = "UPDATE " + Const.USER_TABLE + " SET " + Const.USERS_PASSWORD + "='" + user.getPassword() + "' WHERE " + Const.USER_TABLE + "." + Const.USERS_ID + " = " + user.getId_user();
             PreparedStatement prSt = getDbConnection().prepareStatement(str);
             prSt.executeUpdate();
             prSt.close();

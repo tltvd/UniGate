@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -138,12 +137,22 @@ public class UserDetailPage {
                         alert.setHeaderText("ERROR!");
                         alert.showAndWait();
                     }
-                } catch (NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error!");
+                    alert.setHeaderText("An error occurred while updating your password.");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
                 }
 
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error!");
+                alert.setHeaderText("Please fill in both password fields.");
+                alert.showAndWait();
             }
         });
+
 
         btn_delete.setOnAction(event -> {
 
