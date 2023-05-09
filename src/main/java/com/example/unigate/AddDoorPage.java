@@ -1,16 +1,13 @@
 package com.example.unigate;
 
-import com.example.unigate.Main;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import models.Door;
-import models.Log;
-import models.PackageData;
+import com.example.unigate.models.Door;
+import com.example.unigate.models.PackageData;
 
 import java.io.IOException;
 

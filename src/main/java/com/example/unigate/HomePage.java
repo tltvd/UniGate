@@ -6,8 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
-import models.Door;
-import models.PackageData;
+import com.example.unigate.models.Door;
+import com.example.unigate.models.PackageData;
 
 import java.io.IOException;
 import java.util.ArrayList;

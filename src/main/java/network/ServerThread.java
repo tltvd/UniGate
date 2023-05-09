@@ -1,8 +1,8 @@
 package network;
 
-import DataBase.DatabaseHandler;
-import DataBase.Const;
-import models.*;
+import com.example.unigate.DataBase.DatabaseHandler;
+import com.example.unigate.DataBase.Const;
+import com.example.unigate.models.*;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;
@@ -10,7 +10,11 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.sql.ResultSet;
+import java.sql.Time;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -45,10 +49,72 @@ public class ServerThread extends Thread {
                         User userFromClient = pd.getUser();
                         db.update(userFromClient);
 
+                    } else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
+                        User userFromClient = pd.getUser();
+                        Door doorFromClient = pd.getDoor();
+                        ArrayList<Schedule> schedules = new ArrayList<>();
+                        ResultSet infoClient = db.getDostup(doorFromClient, userFromClient);
+
+                        // Get the current time and day of the week
+                        LocalTime currentTime = LocalTime.now();
+                        DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
+
+                        while (infoClient.next()) {
+                            String day = infoClient.getString(Const.SCHEDULE_day);
+                            Time startTime = infoClient.getTime(Const.SCHEDULE_START_TIME);
+                            Time endTime = infoClient.getTime(Const.SCHEDULE_END_TIME);
+
+                            // Convert the time values to LocalTime
+                            LocalTime startTimeLocal = startTime.toLocalTime();
+                            LocalTime endTimeLocal = endTime.toLocalTime();
+
+                            // Check if the current day and time match the schedule
+                            if (day.equalsIgnoreCase(currentDayOfWeek.name()) &&
+                                    currentTime.isAfter(startTimeLocal) && currentTime.isBefore(endTimeLocal)) {
+                                Schedule schedule = new Schedule();
+                                schedule.setId_user(infoClient.getString(Const.SCHEDULE_IDUSER));
+                                schedule.setDay(day);
+                                schedule.setStart_time(startTime);
+                                schedule.setEnd_time(endTime);
+                                schedule.setId_room(String.valueOf(infoClient.getInt(Const.SCHEDULE_IDROOM)));
+                                schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
+                                schedules.add(schedule);
+                            }
+                        }
+
+                        // Display the retrieved schedules
+                        for (Schedule schedule : schedules) {
+                            System.out.println("Schedule ID: " + schedule.getId_user());
+                            System.out.println("Day: " + schedule.getDay());
+                            System.out.println("Start Time: " + schedule.getStart_time());
+                            System.out.println("End Time: " + schedule.getEnd_time());
+                            System.out.println("Room ID: " + schedule.getId_room());
+                            System.out.println("Access Description: " + schedule.getAccess_description());
+                            System.out.println();
+                        }
+
+                        // Return the door through the stream
+                        pd.setDoor(doorFromClient);
+                        outputStream.writeObject(pd);
+                    } else if (pd.getOperationType().equals("SIGN_IN_MOBILE")) {
+                        User user = new User();
+                        ResultSet infoClient = db.getUser(pd.getUser());
+                        while (infoClient.next()) {
+                            user.setUsername(infoClient.getString(Const.USERS_USERNAME));
+                            user.setPassword(infoClient.getString(Const.USERS_PASSWORD));
+                            user.setRole(infoClient.getString(Const.USERS_ROLE));
+                            user.setEmail(infoClient.getString(Const.USERS_EMAIL));
+                            user.setFirst_name(infoClient.getString(Const.USERS_FIRSTNAME));
+                            user.setLast_name(infoClient.getString(Const.USERS_LASTNAME));
+                            user.setId_user(infoClient.getString(Const.USERS_ID));
+                            user.setPhone(infoClient.getString(Const.USERS_PHONE));
+                        }
+                        PackageData data = new PackageData(user);
+                        outputStream.writeObject(data);
+                        System.out.println("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from Client IP: " + clientAddress.getHostAddress());
                     } else if (pd.getOperationType().equals("UPDATE_DOOR")) {
                         Door doorFromClient = pd.getDoor();
                         db.update(doorFromClient);
-
                     } else if (pd.getOperationType().equals("SIGN_IN")) {
                         User user = new User();
                         ResultSet infoClient = db.getUser(pd.getUser());
@@ -169,7 +235,8 @@ public class ServerThread extends Thread {
 
                 }
             } catch (EOFException ignored) {
-            } inputStream.close();
+            }
+            inputStream.close();
             outputStream.close();
             socket.close();
         } catch (Exception e) {

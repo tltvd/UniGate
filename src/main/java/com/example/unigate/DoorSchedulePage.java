@@ -8,9 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.PackageData;
-import models.Schedule;
-import models.User;
+import com.example.unigate.models.PackageData;
+import com.example.unigate.models.Schedule;
+import com.example.unigate.models.User;
 
 import java.io.IOException;
 import java.util.ArrayList;

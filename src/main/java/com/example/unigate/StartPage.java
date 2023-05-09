@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import DataBase.Const;
+import com.example.unigate.DataBase.Const;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,8 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import models.PackageData;
-import models.User;
+import com.example.unigate.models.PackageData;
+import com.example.unigate.models.User;
 
 public class StartPage {
     public static User user;

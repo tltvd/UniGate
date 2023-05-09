@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import models.Door;
-import models.PackageData;
+import com.example.unigate.models.Door;
+import com.example.unigate.models.PackageData;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

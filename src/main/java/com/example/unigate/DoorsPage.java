@@ -14,9 +14,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import models.Door;
-import models.Log;
-import models.PackageData;
+import com.example.unigate.models.Door;
+import com.example.unigate.models.Log;
+import com.example.unigate.models.PackageData;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

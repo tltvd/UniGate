@@ -118,3 +118,59 @@ INFO: Локальный IP-адрес: 192.168.88.96
 INFO: THE SERVER WAS STARTED SUCCESSFULLY
 мая 05, 2023 9:47:14 AM network.Server main
 INFO: WAITING CLIENTS
+мая 09, 2023 6:52:34 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 6:52:34 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 6:52:34 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 6:52:34 PM network.Server main
+INFO: WAITING CLIENTS
+мая 09, 2023 7:12:03 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 7:12:03 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 7:12:03 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 7:12:03 PM network.Server main
+INFO: WAITING CLIENTS
+мая 09, 2023 7:16:31 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 7:16:31 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 7:16:31 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 7:16:31 PM network.Server main
+INFO: WAITING CLIENTS
+мая 09, 2023 7:19:35 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 7:19:35 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 7:19:35 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 7:19:35 PM network.Server main
+INFO: WAITING CLIENTS
+мая 09, 2023 7:21:12 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 7:21:13 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 7:21:13 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 7:21:13 PM network.Server main
+INFO: WAITING CLIENTS
+мая 09, 2023 7:22:30 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 7:22:30 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 7:22:30 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 7:22:30 PM network.Server main
+INFO: WAITING CLIENTS
+мая 09, 2023 8:35:15 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.123
+мая 09, 2023 8:35:15 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 09, 2023 8:35:15 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 09, 2023 8:35:15 PM network.Server main
+INFO: WAITING CLIENTS

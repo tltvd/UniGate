@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import models.PackageData;
+import com.example.unigate.models.PackageData;
 
 import java.io.InputStream;
 import java.io.ObjectInputStream;

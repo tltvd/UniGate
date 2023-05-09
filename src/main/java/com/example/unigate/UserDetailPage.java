@@ -1,14 +1,14 @@
 package com.example.unigate;
 
-import DataBase.Const;
+import com.example.unigate.DataBase.Const;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import models.PackageData;
-import models.User;
+import com.example.unigate.models.PackageData;
+import com.example.unigate.models.User;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,15 +1,15 @@
 package com.example.unigate;
 import java.io.IOException;
 
-import DataBase.Const;
+import com.example.unigate.DataBase.Const;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import models.PackageData;
-import models.User;
+import com.example.unigate.models.PackageData;
+import com.example.unigate.models.User;
 
 import java.io.File;
 import java.security.NoSuchAlgorithmException;

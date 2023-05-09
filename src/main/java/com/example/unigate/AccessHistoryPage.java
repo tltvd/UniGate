@@ -1,6 +1,5 @@
 package com.example.unigate;
 
-import com.example.unigate.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Door;
-import models.Log;
-import models.PackageData;
-import models.User;
+import com.example.unigate.models.Log;
+import com.example.unigate.models.PackageData;
 
 import java.io.IOException;
 import java.util.ArrayList;
