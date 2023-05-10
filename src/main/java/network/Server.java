@@ -61,6 +61,5 @@ public class Server {
             logger.severe(e.getMessage());
             e.printStackTrace();
         }
-        logger.info("TESSSSSSSSSSSSSSSSST");
     }
 }
