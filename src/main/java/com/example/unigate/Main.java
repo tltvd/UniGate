@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import com.example.unigate.models.PackageData;
 
+import javax.net.ssl.*;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.security.cert.X509Certificate;
 
 public class Main extends Application {
 
@@ -23,7 +24,22 @@ public class Main extends Application {
 
     public static void connect(PackageData pd) {
         try {
-            Socket socket = new Socket("127.0.0.1", 3489);
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[] { new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {}
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            } }, null);
+
+            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+            SSLSocket socket = (SSLSocket) sslSocketFactory.createSocket("127.0.0.1", 3489);
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
 
@@ -70,8 +86,6 @@ public class Main extends Application {
             inputStream.close();
             outputStream.close();
             socket.close();
-
-
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -79,7 +93,6 @@ public class Main extends Application {
             alert.setHeaderText("Problem connecting to the server!");
             alert.showAndWait();
         }
-
     }
 
     @Override

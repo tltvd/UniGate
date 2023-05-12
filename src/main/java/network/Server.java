@@ -2,13 +2,15 @@ package network;
 
 import network.ServerThread;
 
+import javax.net.ssl.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.*;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.Enumeration;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 public class Server {
     private static final Logger logger = Logger.getLogger(Server.class.getName());
@@ -27,6 +29,7 @@ public class Server {
                 }
             }
         } catch (SocketException e) {
+            logger.severe(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -45,21 +48,55 @@ public class Server {
             fileHandler.setFormatter(formatter);
             logger.addHandler(fileHandler);
 
-            ServerSocket ss = new ServerSocket(3489);
-            printLocalIPAddress();
-            logger.info("THE SERVER WAS STARTED SUCCESSFULLY");
-            logger.info("WAITING CLIENTS");
+            // Добавление обработчика вывода для перенаправления в лог
+            Handler consoleHandler = new ConsoleHandler();
+            consoleHandler.setLevel(Level.ALL);
+            consoleHandler.setFormatter(formatter);
 
-            while(true) {
-                Socket socket = ss.accept();
+
+            // Загрузка SSL-сертификата
+            char[] keystorePassword = "iitu2019".toCharArray(); // Пароль для доступа к хранилищу ключей
+            KeyStore keystore = KeyStore.getInstance("JKS");
+            keystore.load(Server.class.getResourceAsStream("/keystore.jks"), keystorePassword);
+
+            // Создание менеджера ключей
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            kmf.init(keystore, keystorePassword);
+
+            // Создание SSL-контекста
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(kmf.getKeyManagers(), null, null);
+
+            // Создание SSL-серверного сокета
+            SSLServerSocketFactory sslServerSocketFactory = sslContext.getServerSocketFactory();
+            SSLServerSocket sslServerSocket = (SSLServerSocket) sslServerSocketFactory.createServerSocket(3489);
+
+            printLocalIPAddress();
+            logger.info("СЕРВЕР ЗАПУЩЕН");
+            logger.info("ОЖИДАНИЕ КЛИЕНТОВ");
+
+            while (true) {
+                SSLSocket socket = (SSLSocket) sslServerSocket.accept();
 
                 ServerThread st = new ServerThread(socket);
                 st.start();
             }
-
-        } catch (IOException e) {
+        } catch (IOException | NoSuchAlgorithmException | KeyStoreException |
+                 UnrecoverableKeyException | KeyManagementException e) {
             logger.severe(e.getMessage());
+            logger.severe("Ошибка при запуске сервера");
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            logger.severe(e.getMessage());
+            logger.severe("Ошибка при загрузке сертификата");
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+            logger.severe("Возникла непредвиденная ошибка");
             e.printStackTrace();
         }
     }
 }
+
+
+
