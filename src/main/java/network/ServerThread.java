@@ -46,10 +46,8 @@ public class ServerThread extends Thread {
                         User userFromClient = pd.getUser();
                         db.add(userFromClient);
                         System.out.println("[" + formattedDateTime + "] A NEW USER WAS REGISTERED from Client IP: " + clientAddress.getHostAddress());
-                    }
-                    else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
+                    } else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
                         User userFromClient = pd.getUser();
-                        System.out.println(userFromClient.toString());
                         ArrayList<Schedule> schedules = new ArrayList<>();
                         ResultSet infoClient = db.getDostup(pd.getDoor(), userFromClient);
                         // Get the current time and day of the week
@@ -78,6 +76,7 @@ public class ServerThread extends Thread {
                                 schedule.setId_room(String.valueOf(infoClient.getInt(Const.SCHEDULE_IDROOM)));
                                 schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
                                 schedules.add(schedule);
+                                System.out.println(schedule);
 
                                 // Get the door for the current schedule
                                 Door door = db.getDoorById(schedule.getId_room());
@@ -98,58 +97,10 @@ public class ServerThread extends Thread {
                         if (!scheduleFound) {
                             System.out.println("Расписание не найдено");
                         }
-                    }
-                    else if (pd.getOperationType().equals("UPDATE")) {
+                    } else if (pd.getOperationType().equals("UPDATE")) {
                         User userFromClient = pd.getUser();
                         db.update(userFromClient);
 
-                    } else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
-                        User userFromClient = pd.getUser();
-                        Door doorFromClient = pd.getDoor();
-                        ArrayList<Schedule> schedules = new ArrayList<>();
-                        ResultSet infoClient = db.getDostup(doorFromClient, userFromClient);
-
-                        // Get the current time and day of the week
-                        LocalTime currentTime = LocalTime.now();
-                        DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
-
-                        while (infoClient.next()) {
-                            String day = infoClient.getString(Const.SCHEDULE_day);
-                            Time startTime = infoClient.getTime(Const.SCHEDULE_START_TIME);
-                            Time endTime = infoClient.getTime(Const.SCHEDULE_END_TIME);
-
-                            // Convert the time values to LocalTime
-                            LocalTime startTimeLocal = startTime.toLocalTime();
-                            LocalTime endTimeLocal = endTime.toLocalTime();
-
-                            // Check if the current day and time match the schedule
-                            if (day.equalsIgnoreCase(currentDayOfWeek.name()) &&
-                                    currentTime.isAfter(startTimeLocal) && currentTime.isBefore(endTimeLocal)) {
-                                Schedule schedule = new Schedule();
-                                schedule.setId_user(infoClient.getString(Const.SCHEDULE_IDUSER));
-                                schedule.setDay(day);
-                                schedule.setStart_time(startTime);
-                                schedule.setEnd_time(endTime);
-                                schedule.setId_room(String.valueOf(infoClient.getInt(Const.SCHEDULE_IDROOM)));
-                                schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
-                                schedules.add(schedule);
-                            }
-                        }
-
-                        // Display the retrieved schedules
-                        for (Schedule schedule : schedules) {
-                            System.out.println("Schedule ID: " + schedule.getId_user());
-                            System.out.println("Day: " + schedule.getDay());
-                            System.out.println("Start Time: " + schedule.getStart_time());
-                            System.out.println("End Time: " + schedule.getEnd_time());
-                            System.out.println("Room ID: " + schedule.getId_room());
-                            System.out.println("Access Description: " + schedule.getAccess_description());
-                            System.out.println();
-                        }
-
-                        // Return the door through the stream
-                        pd.setDoor(doorFromClient);
-                        outputStream.writeObject(pd);
                     } else if (pd.getOperationType().equals("SIGN_IN_MOBILE")) {
                         User user = new User();
                         ResultSet infoClient = db.getUser(pd.getUser());
