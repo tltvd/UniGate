@@ -265,5 +265,29 @@ public class DatabaseHandler extends Configs {
         return resSet;
     }
 
+    public Door getDoorById(String id) {
+        Door door = null;
+        String query = "SELECT * FROM " + Const.DOORS_TABLE + " WHERE " + Const.DOORS_ID + "=?";
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(query);
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                door = new Door();
+                door.setId_room(resultSet.getString(Const.DOORS_ID));
+                door.setName(resultSet.getString(Const.DOORS_NAME));
+                door.setLocation(resultSet.getString(Const.DOORS_LOCATION));
+                door.setIpv4(resultSet.getString(Const.DOORS_IPV4));
+                // Set other door properties if needed
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return door;
+    }
 
 }

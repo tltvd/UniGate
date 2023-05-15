@@ -2,6 +2,7 @@ package network;
 
 import com.example.unigate.DataBase.DatabaseHandler;
 import com.example.unigate.DataBase.Const;
+import com.example.unigate.DoorsPage;
 import com.example.unigate.models.*;
 
 import javax.net.ssl.SSLSocket;
@@ -51,10 +52,8 @@ public class ServerThread extends Thread {
                         db.update(userFromClient);
                     } else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
                         User userFromClient = pd.getUser();
-                        Door doorFromClient = pd.getDoor();
                         ArrayList<Schedule> schedules = new ArrayList<>();
-                        ResultSet infoClient = db.getDostup(doorFromClient, userFromClient);
-
+                        ResultSet infoClient = db.getDostup(pd.getDoor(), userFromClient);
                         // Get the current time and day of the week
                         LocalTime currentTime = LocalTime.now();
                         DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
@@ -79,6 +78,14 @@ public class ServerThread extends Thread {
                                 schedule.setId_room(String.valueOf(infoClient.getInt(Const.SCHEDULE_IDROOM)));
                                 schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
                                 schedules.add(schedule);
+
+                                // Get the door for the current schedule
+                                Door door = db.getDoorById(schedule.getId_room());
+                                if (door != null) {
+                                    // Execute command for the door
+                                    String str = door.getIpv4();
+                                    DoorsPage.sendGetRequest("http://" + str + "/cgi-bin/command", "z5rweb", "C59C8BEE");
+                                }
                             }
                         }
 
@@ -91,10 +98,14 @@ public class ServerThread extends Thread {
                             logger.info("Room ID: " + schedule.getId_room());
                             logger.info("Access Description: " + schedule.getAccess_description());
                             logger.info("");
-                        }                    // Return the door through the stream
-                        pd.setDoor(doorFromClient);
+                        }
+
+                        // Return the door through the stream
+                        pd.setScheduleArray(schedules);
                         outputStream.writeObject(pd);
                     } else if (pd.getOperationType().equals("SIGN_IN_MOBILE")) {
+
+
                         User user = new User();
                         ResultSet infoClient = db.getUser(pd.getUser());
                         while (infoClient.next()) {
@@ -107,6 +118,8 @@ public class ServerThread extends Thread {
                             user.setId_user(infoClient.getString(Const.USERS_ID));
                             user.setPhone(infoClient.getString(Const.USERS_PHONE));
                         }
+
+
                         PackageData data = new PackageData(user);
                         outputStream.writeObject(data);
                         logger.info("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from MOBILE Client IP: " + clientAddress.getHostAddress());
