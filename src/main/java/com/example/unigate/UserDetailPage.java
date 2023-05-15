@@ -72,7 +72,7 @@ public class UserDetailPage {
     public void initialize() throws SQLException, FileNotFoundException {
 
         String id_user = user_selected.getId_user();
-        String imagePath = "C:\\xampp\\htdocs\\dashboard\\unigate\\" + id_user;
+        String imagePath = "D:\\xampp\\htdocs\\dashboard\\unigate\\" + id_user;
 
 // проверяем наличие файла
         File imageFile = new File(imagePath + ".png");

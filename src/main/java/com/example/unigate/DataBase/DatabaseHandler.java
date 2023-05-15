@@ -264,7 +264,6 @@ public class DatabaseHandler extends Configs {
         }
         return resSet;
     }
-
     public Door getDoorById(String id) {
         Door door = null;
         String query = "SELECT * FROM " + Const.DOORS_TABLE + " WHERE " + Const.DOORS_ID + "=?";

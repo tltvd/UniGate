@@ -13,6 +13,5 @@ module com.example.unigate {
     exports com.example.unigate;
     exports com.example.unigate.DataBase;
     opens com.example.unigate.DataBase to javafx.fxml;
-    opens network to javafx.graphics;
 
 }

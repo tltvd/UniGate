@@ -5,7 +5,6 @@ import com.example.unigate.DataBase.Const;
 import com.example.unigate.DoorsPage;
 import com.example.unigate.models.*;
 
-import javax.net.ssl.SSLSocket;
 import java.io.EOFException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,44 +18,45 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class ServerThread extends Thread {
-    private SSLSocket clientSocket;
-    private static final Logger logger = Logger.getLogger(ServerThread.class.getName());
+    private final Socket socket;
 
-    public ServerThread(SSLSocket socket) {
-        this.clientSocket = socket;
+    public ServerThread(Socket socket) {
+        this.socket = socket;
     }
+
 
     public void run() {
         try {
-            InetAddress clientAddress = clientSocket.getInetAddress();
+            InetAddress clientAddress = socket.getInetAddress();
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formattedDateTime = currentDateTime.format(formatter);
 
+
             DatabaseHandler db = new DatabaseHandler();
             db.getDbConnection();
-            ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
-            ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
             PackageData pd = null;
             try {
                 while ((pd = (PackageData) inputStream.readObject()) != null) {
                     if (pd.getOperationType().equals("SIGN_UP")) {
                         User userFromClient = pd.getUser();
                         db.add(userFromClient);
-                        logger.info("[" + formattedDateTime + "] A NEW USER WAS REGISTERED from Client IP: " + clientAddress.getHostAddress());
-                    } else if (pd.getOperationType().equals("UPDATE")) {
+                        System.out.println("[" + formattedDateTime + "] A NEW USER WAS REGISTERED from Client IP: " + clientAddress.getHostAddress());
+                    }
+                    else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
                         User userFromClient = pd.getUser();
-                        db.update(userFromClient);
-                    } else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
-                        User userFromClient = pd.getUser();
+                        System.out.println(userFromClient.toString());
                         ArrayList<Schedule> schedules = new ArrayList<>();
                         ResultSet infoClient = db.getDostup(pd.getDoor(), userFromClient);
                         // Get the current time and day of the week
                         LocalTime currentTime = LocalTime.now();
                         DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
+
+                        boolean scheduleFound = false;
 
                         while (infoClient.next()) {
                             String day = infoClient.getString(Const.SCHEDULE_day);
@@ -85,27 +85,72 @@ public class ServerThread extends Thread {
                                     // Execute command for the door
                                     String str = door.getIpv4();
                                     DoorsPage.sendGetRequest("http://" + str + "/cgi-bin/command", "z5rweb", "C59C8BEE");
+                                    // Добавьте дополнительные действия, которые должны выполняться
+                                    // для каждого элемента расписания, удовлетворяющего условиям времени и дня недели
+                                    // Например:
+                                    // doSomethingWithSchedule(schedule);
+
+                                    scheduleFound = true;
                                 }
+                            }
+                        }
+
+                        if (!scheduleFound) {
+                            System.out.println("Расписание не найдено");
+                        }
+                    }
+                    else if (pd.getOperationType().equals("UPDATE")) {
+                        User userFromClient = pd.getUser();
+                        db.update(userFromClient);
+
+                    } else if (pd.getOperationType().equals("OPEN_DOOR_MOBILE")) {
+                        User userFromClient = pd.getUser();
+                        Door doorFromClient = pd.getDoor();
+                        ArrayList<Schedule> schedules = new ArrayList<>();
+                        ResultSet infoClient = db.getDostup(doorFromClient, userFromClient);
+
+                        // Get the current time and day of the week
+                        LocalTime currentTime = LocalTime.now();
+                        DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
+
+                        while (infoClient.next()) {
+                            String day = infoClient.getString(Const.SCHEDULE_day);
+                            Time startTime = infoClient.getTime(Const.SCHEDULE_START_TIME);
+                            Time endTime = infoClient.getTime(Const.SCHEDULE_END_TIME);
+
+                            // Convert the time values to LocalTime
+                            LocalTime startTimeLocal = startTime.toLocalTime();
+                            LocalTime endTimeLocal = endTime.toLocalTime();
+
+                            // Check if the current day and time match the schedule
+                            if (day.equalsIgnoreCase(currentDayOfWeek.name()) &&
+                                    currentTime.isAfter(startTimeLocal) && currentTime.isBefore(endTimeLocal)) {
+                                Schedule schedule = new Schedule();
+                                schedule.setId_user(infoClient.getString(Const.SCHEDULE_IDUSER));
+                                schedule.setDay(day);
+                                schedule.setStart_time(startTime);
+                                schedule.setEnd_time(endTime);
+                                schedule.setId_room(String.valueOf(infoClient.getInt(Const.SCHEDULE_IDROOM)));
+                                schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
+                                schedules.add(schedule);
                             }
                         }
 
                         // Display the retrieved schedules
                         for (Schedule schedule : schedules) {
-                            logger.info("Schedule ID: " + schedule.getId_user());
-                            logger.info("Day: " + schedule.getDay());
-                            logger.info("Start Time: " + schedule.getStart_time());
-                            logger.info("End Time: " + schedule.getEnd_time());
-                            logger.info("Room ID: " + schedule.getId_room());
-                            logger.info("Access Description: " + schedule.getAccess_description());
-                            logger.info("");
+                            System.out.println("Schedule ID: " + schedule.getId_user());
+                            System.out.println("Day: " + schedule.getDay());
+                            System.out.println("Start Time: " + schedule.getStart_time());
+                            System.out.println("End Time: " + schedule.getEnd_time());
+                            System.out.println("Room ID: " + schedule.getId_room());
+                            System.out.println("Access Description: " + schedule.getAccess_description());
+                            System.out.println();
                         }
 
                         // Return the door through the stream
-                        pd.setScheduleArray(schedules);
+                        pd.setDoor(doorFromClient);
                         outputStream.writeObject(pd);
                     } else if (pd.getOperationType().equals("SIGN_IN_MOBILE")) {
-
-
                         User user = new User();
                         ResultSet infoClient = db.getUser(pd.getUser());
                         while (infoClient.next()) {
@@ -118,11 +163,9 @@ public class ServerThread extends Thread {
                             user.setId_user(infoClient.getString(Const.USERS_ID));
                             user.setPhone(infoClient.getString(Const.USERS_PHONE));
                         }
-
-
                         PackageData data = new PackageData(user);
                         outputStream.writeObject(data);
-                        logger.info("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from MOBILE Client IP: " + clientAddress.getHostAddress());
+                        System.out.println("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from Client IP: " + clientAddress.getHostAddress());
                     } else if (pd.getOperationType().equals("UPDATE_DOOR")) {
                         Door doorFromClient = pd.getDoor();
                         db.update(doorFromClient);
@@ -141,7 +184,7 @@ public class ServerThread extends Thread {
                         }
                         PackageData data = new PackageData(user);
                         outputStream.writeObject(data);
-                        logger.info("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from Client IP: " + clientAddress.getHostAddress());
+                        System.out.println("[" + formattedDateTime + "] USER ID: " + user.getId_user() + " FullName: " + user.getFirst_name() + " " + user.getLast_name() + " WAS SIGN IN from Client IP: " + clientAddress.getHostAddress());
                     } else if (pd.getOperationType().equals("LIST_USERS")) {
                         ArrayList<User> users = new ArrayList<>();
                         ResultSet infoClient = db.getAllusers();
@@ -167,8 +210,7 @@ public class ServerThread extends Thread {
                         ResultSet infoClient = db.getAlldoors();
                         while (infoClient.next()) {
                             Door door = new Door();
-                            door.setLocation(infoClient.getString
-                                    (Const.DOORS_LOCATION));
+                            door.setLocation(infoClient.getString(Const.DOORS_LOCATION));
                             door.setName(infoClient.getString(Const.DOORS_NAME));
                             door.setId_room(infoClient.getString(Const.DOORS_ID));
                             door.setIpv4(infoClient.getString(Const.DOORS_IPV4));
@@ -220,15 +262,17 @@ public class ServerThread extends Thread {
                     } else if (pd.getOperationType().equals("ADD_LOG")) {
                         Log logFromClient = pd.getLog();
                         db.add_log(logFromClient);
-                        logger.info("----------A NEW LOG WAS ADDED----------");
+                        System.out.println("----------A NEW LOG WAS ADDED----------");
                     } else if (pd.getOperationType().equals("ADD_DOOR")) {
                         Door DoorFromClient = pd.getDoor();
                         db.add_door(DoorFromClient);
-                        logger.info("[" + formattedDateTime + "] DOOR ID: " + pd.getDoor().getId_room() + " LOCATION: " + pd.getDoor().getLocation() + " WAS ADDED from Client IP: " + clientAddress.getHostAddress());
+                        System.out.println("[" + formattedDateTime + "] DOOR ID: " + pd.getDoor().getId_room() + " LOCATION: " + pd.getDoor().getLocation() + " WAS ADDED from Client IP: " + clientAddress.getHostAddress());
+                        //System.out.println("----------A NEW DOOR WAS ADDED----------");
                     } else if (pd.getOperationType().equals("ADD_SCHEDULE")) {
                         Schedule ScheduleFromClient = pd.getSchedule();
                         db.add_schedule(ScheduleFromClient);
-                        logger.info("[" + formattedDateTime + "] SCHEDULE ID: " + pd.getSchedule().getId_schedule() + " ID USER: " + pd.getSchedule().getId_user() + " WAS ADDED from Client IP: " + clientAddress.getHostAddress());
+                        System.out.println("[" + formattedDateTime + "] SCHEDULE ID: " + pd.getSchedule().getId_schedule() + " ID USER: " + pd.getSchedule().getId_user() + " WAS ADDED from Client IP: " + clientAddress.getHostAddress());
+                        //System.out.println("----------A NEW ACCESS WAS ADDED----------");
                     } else if (pd.getOperationType().equals("USERNAME_CHECK")) {
                         User user = new User();
                         ResultSet infoClient = db.UsernameCheck(pd.getUser());
@@ -241,15 +285,17 @@ public class ServerThread extends Thread {
                         PackageData data = new PackageData(user);
                         outputStream.writeObject(data);
                     }
+
+
                 }
             } catch (EOFException ignored) {
             }
             inputStream.close();
             outputStream.close();
-            clientSocket.close();
+            socket.close();
         } catch (Exception e) {
-            logger.severe(e.getMessage());
             e.printStackTrace();
         }
     }
+
 }

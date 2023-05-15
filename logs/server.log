@@ -44,3 +44,133 @@ INFO: Локальный IP-адрес: 192.168.88.96
 INFO: СЕРВЕР ЗАПУЩЕН
 мая 12, 2023 1:44:02 PM network.Server main
 INFO: ОЖИДАНИЕ КЛИЕНТОВ
+мая 15, 2023 9:54:22 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 9:54:22 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.0.14
+мая 15, 2023 9:54:22 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 9:54:22 PM network.Server main
+INFO: СЕРВЕР ЗАПУЩЕН
+мая 15, 2023 9:54:22 PM network.Server main
+INFO: ОЖИДАНИЕ КЛИЕНТОВ
+мая 15, 2023 10:53:48 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 10:53:48 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.0.14
+мая 15, 2023 10:53:48 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 10:53:48 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 10:53:48 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:04:53 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:04:54 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.0.14
+мая 15, 2023 11:04:54 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:04:54 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:04:54 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:11:05 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:11:05 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:11:05 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:11:05 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:11:05 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:13:27 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:13:27 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:13:27 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:13:27 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:13:27 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:17:28 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:17:28 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:17:28 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:17:28 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:17:28 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:18:42 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:18:42 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:18:42 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:18:42 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:18:42 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:24:58 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:24:58 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:24:58 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:24:58 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:24:58 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:33:38 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:33:38 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:33:38 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:33:38 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:33:38 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:46:38 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:46:38 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:46:38 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:46:38 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:46:38 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:53:08 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:53:08 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:53:08 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:53:08 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:53:08 PM network.Server main
+INFO: WAITING CLIENTS
+мая 15, 2023 11:55:36 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 15, 2023 11:55:36 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 15, 2023 11:55:36 PM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 15, 2023 11:55:36 PM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 15, 2023 11:55:36 PM network.Server main
+INFO: WAITING CLIENTS
+мая 16, 2023 12:01:45 AM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 26.206.197.110
+мая 16, 2023 12:01:45 AM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.1.99
+мая 16, 2023 12:01:45 AM network.Server printLocalIPAddress
+INFO: Локальный IP-адрес: 192.168.56.1
+мая 16, 2023 12:01:45 AM network.Server main
+INFO: THE SERVER WAS STARTED SUCCESSFULLY
+мая 16, 2023 12:01:45 AM network.Server main
+INFO: WAITING CLIENTS
