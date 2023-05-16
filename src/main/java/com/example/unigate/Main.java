@@ -14,30 +14,36 @@ import javax.net.ssl.*;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.KeyStore;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
 public class Main extends Application {
-
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static Stage window;
 
     public static void connect(PackageData pd) {
         try {
+            // Загрузка доверенного сертификата
+            InputStream certInputStream = Main.class.getResourceAsStream("/certificate.crt");
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            X509Certificate cert = (X509Certificate) cf.generateCertificate(certInputStream);
+            certInputStream.close();
+
+            // Создание хранилища ключей и добавление доверенного сертификата с паролем
+            char[] password = "iitu2019".toCharArray();
+            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            trustStore.load(null, password);
+            trustStore.setCertificateEntry("server", cert);
+
+            // Создание менеджера доверия и инициализация SSL контекста
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(trustStore);
             SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[] { new X509TrustManager() {
-                @Override
-                public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+            sslContext.init(null, trustManagerFactory.getTrustManagers(), null);
 
-                @Override
-                public void checkServerTrusted(X509Certificate[] chain, String authType) {}
-
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
-            } }, null);
-
+            // Создание SSL сокета
             SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
             SSLSocket socket = (SSLSocket) sslSocketFactory.createSocket("127.0.0.1", 3489);
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -82,7 +88,6 @@ public class Main extends Application {
             } else if (pd.getOperationType().equals("DELETE_USER")) {
                 outputStream.writeObject(pd);
             }
-
             inputStream.close();
             outputStream.close();
             socket.close();
@@ -119,7 +124,33 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        // Загрузка доверенного сертификата и закрытого ключа в систему
+        try {
+            InputStream certInputStream = Main.class.getResourceAsStream("/certificate.crt");
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            X509Certificate cert = (X509Certificate) cf.generateCertificate(certInputStream);
+            certInputStream.close();
 
+            InputStream keyInputStream = Main.class.getResourceAsStream("/keystore.p12");
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            char[] keyPassword = "iitu2019".toCharArray(); // Пароль для доступа к закрытому ключу
+            keyStore.load(keyInputStream, keyPassword);
+            keyInputStream.close();
+
+            // Создание менеджера ключей и добавление сертификата
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            keyManagerFactory.init(keyStore, keyPassword);
+
+            // Создание менеджера доверия и установка его в системные свойства
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(keyStore);
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
+            SSLContext.setDefault(sslContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        launch();
     }
 }

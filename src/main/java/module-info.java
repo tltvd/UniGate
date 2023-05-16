@@ -6,6 +6,7 @@ module com.example.unigate {
     requires java.desktop;
     requires com.google.zxing;
     requires com.google.zxing.javase;
+    requires org.bouncycastle.provider;
 
 
     opens com.example.unigate.models to javafx.base;

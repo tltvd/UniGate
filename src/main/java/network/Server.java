@@ -4,11 +4,14 @@ import network.ServerThread;
 
 import javax.net.ssl.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 import java.util.logging.*;
 
@@ -54,18 +57,31 @@ public class Server {
             consoleHandler.setFormatter(formatter);
 
 
-            // Загрузка SSL-сертификата
-            char[] keystorePassword = "iitu2019".toCharArray(); // Пароль для доступа к хранилищу ключей
-            KeyStore keystore = KeyStore.getInstance("JKS");
-            keystore.load(Server.class.getResourceAsStream("/keystore.jks"), keystorePassword);
+            // Загрузка сертификата
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+            char[] password = "iitu2019".toCharArray(); // Пароль для доступа к сертификату
+            ClassLoader classLoader = Server.class.getClassLoader();
+            File certFile = new File(classLoader.getResource("certificate.crt").getFile()); // Путь к файлу сертификата
+            FileInputStream fis = new FileInputStream(certFile);
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            X509Certificate cert = (X509Certificate) cf.generateCertificate(fis);
+            fis.close();
+
+            // Загрузка закрытого ключа
+            File privateKeyFile = new File(classLoader.getResource("keystore.p12").getFile()); // Путь к файлу закрытого ключа
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            char[] keyPassword = "iitu2019".toCharArray(); // Пароль для доступа к закрытому ключу
+            InputStream keyInputStream = new FileInputStream(privateKeyFile);
+            keyStore.load(keyInputStream, keyPassword);
+            keyInputStream.close();
 
             // Создание менеджера ключей
-            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            kmf.init(keystore, keystorePassword);
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            keyManagerFactory.init(keyStore, keyPassword);
 
             // Создание SSL-контекста
             SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(kmf.getKeyManagers(), null, null);
+            sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
 
             // Создание SSL-серверного сокета
             SSLServerSocketFactory sslServerSocketFactory = sslContext.getServerSocketFactory();
@@ -97,6 +113,7 @@ public class Server {
         }
     }
 }
+
 
 
 

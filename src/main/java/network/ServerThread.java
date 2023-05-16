@@ -89,16 +89,6 @@ public class ServerThread extends Thread {
                             }
                         }
 
-                        // Display the retrieved schedules
-                        for (Schedule schedule : schedules) {
-                            logger.info("Schedule ID: " + schedule.getId_user());
-                            logger.info("Day: " + schedule.getDay());
-                            logger.info("Start Time: " + schedule.getStart_time());
-                            logger.info("End Time: " + schedule.getEnd_time());
-                            logger.info("Room ID: " + schedule.getId_room());
-                            logger.info("Access Description: " + schedule.getAccess_description());
-                            logger.info("");
-                        }
 
                         // Return the door through the stream
                         pd.setScheduleArray(schedules);
