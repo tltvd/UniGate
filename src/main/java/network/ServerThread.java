@@ -58,6 +58,8 @@ public class ServerThread extends Thread {
                         LocalTime currentTime = LocalTime.now();
                         DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
 
+                        boolean scheduleFound = false;
+
                         while (infoClient.next()) {
                             String day = infoClient.getString(Const.SCHEDULE_day);
                             Time startTime = infoClient.getTime(Const.SCHEDULE_START_TIME);
@@ -68,8 +70,7 @@ public class ServerThread extends Thread {
                             LocalTime endTimeLocal = endTime.toLocalTime();
 
                             // Check if the current day and time match the schedule
-                            if (day.equalsIgnoreCase(currentDayOfWeek.name()) &&
-                                    currentTime.isAfter(startTimeLocal) && currentTime.isBefore(endTimeLocal)) {
+                            if (day.equalsIgnoreCase(currentDayOfWeek.name()) && currentTime.isAfter(startTimeLocal) && currentTime.isBefore(endTimeLocal)) {
                                 Schedule schedule = new Schedule();
                                 schedule.setId_user(infoClient.getString(Const.SCHEDULE_IDUSER));
                                 schedule.setDay(day);
@@ -78,6 +79,7 @@ public class ServerThread extends Thread {
                                 schedule.setId_room(String.valueOf(infoClient.getInt(Const.SCHEDULE_IDROOM)));
                                 schedule.setAccess_description(infoClient.getString(Const.SCHEDULE_DESCRIPTION));
                                 schedules.add(schedule);
+                                System.out.println(schedule);
 
                                 // Get the door for the current schedule
                                 Door door = db.getDoorById(schedule.getId_room());
@@ -85,14 +87,19 @@ public class ServerThread extends Thread {
                                     // Execute command for the door
                                     String str = door.getIpv4();
                                     DoorsPage.sendGetRequest("http://" + str + "/cgi-bin/command", "z5rweb", "C59C8BEE");
+                                    // Добавьте дополнительные действия, которые должны выполняться
+                                    // для каждого элемента расписания, удовлетворяющего условиям времени и дня недели
+                                    // Например:
+                                    // doSomethingWithSchedule(schedule);
+
+                                    scheduleFound = true;
                                 }
                             }
                         }
 
-
-                        // Return the door through the stream
-                        pd.setScheduleArray(schedules);
-                        outputStream.writeObject(pd);
+                        if (!scheduleFound) {
+                            System.out.println("Расписание не найдено");
+                        }
                     } else if (pd.getOperationType().equals("SIGN_IN_MOBILE")) {
 
 
@@ -157,8 +164,7 @@ public class ServerThread extends Thread {
                         ResultSet infoClient = db.getAlldoors();
                         while (infoClient.next()) {
                             Door door = new Door();
-                            door.setLocation(infoClient.getString
-                                    (Const.DOORS_LOCATION));
+                            door.setLocation(infoClient.getString(Const.DOORS_LOCATION));
                             door.setName(infoClient.getString(Const.DOORS_NAME));
                             door.setId_room(infoClient.getString(Const.DOORS_ID));
                             door.setIpv4(infoClient.getString(Const.DOORS_IPV4));
